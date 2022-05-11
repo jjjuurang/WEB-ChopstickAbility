@@ -63,7 +63,8 @@ def _grab_image(path=None, stream=None, url=None):
 # the whole thing, video
 # is returned as a streaming http response, or bytes
 def video_stream(request):
-    vid = StreamingHttpResponse(gen(VideoCamera(), False), 
+    videoCamera = VideoCamera()
+    vid = StreamingHttpResponse(gen(videoCamera, False),
     content_type='multipart/x-mixed-replace; boundary=frame')
     return vid
 
