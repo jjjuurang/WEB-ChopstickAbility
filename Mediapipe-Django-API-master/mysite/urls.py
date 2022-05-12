@@ -18,11 +18,18 @@ from django.contrib import admin
 from django.urls import path
 from django.conf import settings
 from django.conf.urls.static import static
+from django.contrib.auth import views as auth_views
 
 from mysite.core import views
 
 urlpatterns = [
-    path('', views.Home.as_view(), name='home'),
+
+    path('', auth_views.LoginView.as_view(template_name='firstmain.html'), name='firstmain'),
+    path('login/', auth_views.LoginView.as_view(template_name='login.html'), name='login'),
+    path('logout/', auth_views.LogoutView.as_view(), name='logout'),
+    path('signup/', views.signup, name='signup'),
+
+    path('home/', views.Home.as_view(), name='home'),
 
     # four links according to the four bottons
     path('image_upload/', views.image_upload_view, name='image_upload'),
