@@ -14,7 +14,7 @@ from script.model.keypoint_classifier.keypoint_classifier import KeyPointClassif
 
 class VideoCamera(object):
 	def __init__(self):
-		self.video = cv.VideoCapture(0)
+		self.video = cv.VideoCapture(1)
 		self.video.set(cv.CAP_PROP_FRAME_WIDTH, 960)
 		self.video.set(cv.CAP_PROP_FRAME_HEIGHT, 540)
 
@@ -23,11 +23,10 @@ class VideoCamera(object):
 		self.use_brect = True
 
 		# Read labels ###########################################################
-		with open('script/model/keypoint_classifier/keypoint_classifier_label.csv',
-				  encoding='utf-8-sig') as f:
-			keypoint_classifier_labels = csv.reader(f)
-			keypoint_classifier_labels = [
-				row[0] for row in keypoint_classifier_labels
+		with open('script/model/keypoint_classifier/keypoint_classifier_label.csv', encoding='utf-8-sig') as f:
+			self.keypoint_classifier_labels = csv.reader(f)
+			self.keypoint_classifier_labels = [
+				row[0] for row in self.keypoint_classifier_labels
 			]
 
 		self.mode = 0
@@ -72,16 +71,8 @@ class VideoCamera(object):
 
 		if results.multi_hand_landmarks is not None:
 			# draw result landmarks
-			for hand_landmarks in zip(results.multi_hand_landmarks,
-									  results.multi_handedness):
-				# print('hand_landmarks:', hand_landmarks)
-				# print(
-				# 	f'Index finger tip coordinates: (',
-				# 	f'{hand_landmarks.landmark[mp_hands.HandLandmark.INDEX_FINGER_TIP].x * image_width}, '
-				# 	f'{hand_landmarks.landmark[mp_hands.HandLandmark.INDEX_FINGER_TIP].y * image_hight})'
-				# )
-				# mp_drawing.draw_landmarks(
-				# 	annotated_image, hand_landmarks, mp_hands.HAND_CONNECTIONS)
+			for hand_landmarks in results.multi_hand_landmarks:
+
 
 				# Bounding box calculation
 				brect = self.calc_bounding_rect(debug_image, hand_landmarks)
@@ -103,7 +94,7 @@ class VideoCamera(object):
 				debug_image = self.draw_bounding_rect(self.use_brect, debug_image, brect)
 				debug_image = self.draw_hand_classification(debug_image, self.keypoint_classifier_labels[hand_sign_id])
 
-				begin, passed = self.time_checker(begin, self.validate, self.invalidate_count)
+				passed = self.time_checker()
 
 				# 한번 패스되면 패스로 영구적 인식
 				if passed == True:
@@ -114,7 +105,7 @@ class VideoCamera(object):
 			self.passing = False
 
 
-		debug_image = self.draw_info(debug_image, self.mode, self.passing)
+		debug_image = self.draw_info(debug_image)
 		return debug_image
 
 	def calc_bounding_rect(self, image, landmarks):
@@ -175,24 +166,30 @@ class VideoCamera(object):
 
 		return temp_landmark_list
 
-	def time_checker(self, begin, validate, invalidate_count):
+	def time_checker(self):
 		now = time.time()
 
-		print("begin: ", int(begin), "now: ", int(now))
-		if validate is None:
-			return now, False
+		##    print("begin: " , int(begin) , "now: " , int(now))
+		if self.validate is None:
+			self.invalidate_count = 0
+			self.begin = now
+			return False
 
-		if now - begin >= 6:
-			print("성공")
-			return begin, True
-		elif now - begin >= 2:
-			if float(invalidate_count) / float(len(validate)) >= 0.8:
-				return begin, False
-			else:  # (float)invalidate_count/(float)len(validate) < 0.8:
-				validate.clear()
-				return now, False
-		else:  # now - begin < 2:
-			return begin, False
+		if now - self.begin >= 6:
+			##print("성공")
+			self.invalidate_count = 0
+			return True
+		elif now - self.begin >= 1.5:
+			# print(float(invalidate_count) / float(len(validate)))
+			if float(self.invalidate_count) / float(len(self.validate)) < 0.2:
+				return False
+			else:  # (float)invalidate_count/(float)len(validate) >= 0.2:
+				self.validate.clear()
+				self.begin = now
+				self.invalidate_count = 0
+				return False
+		else:  # now - begin < 1:
+			return False
 
 	def draw_bounding_rect(self, use_brect, image, brect):
 		if use_brect:
@@ -224,23 +221,23 @@ class VideoCamera(object):
 
 		return image
 
-	def draw_info(self, image, mode, passing):
+	def draw_info(self, image):
 		mode_string = ''
 
-		if mode == 1:
+		if self.mode == 0:
 			mode_string = 'STEP 1'
-		elif mode == 2:
+		elif self.mode == 1:
 			mode_string = 'STEP 2'
-		elif mode == 3:
+		elif self.mode == 2:
 			mode_string = 'STEP 3'
-		elif mode == 4:
+		elif self.mode == 3:
 			mode_string = 'STEP 4'
 
 		cv.putText(image, "MODE:" + mode_string, (10, 90),
 				   cv.FONT_HERSHEY_SIMPLEX, 0.6, (255, 255, 255), 1,
 				   cv.LINE_AA)
 
-		if passing == True:
+		if self.passing == True:
 			is_passed = "TRUE"
 		else:
 			is_passed = "FALSE"
@@ -250,6 +247,17 @@ class VideoCamera(object):
 				   cv.LINE_AA)
 
 		return image
+
+
+
+
+
+
+
+
+
+
+
 
 
 # generator that saves the video captured if flag is set
