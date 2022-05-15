@@ -34,6 +34,10 @@ urlpatterns = [
     # four links according to the four bottons
     path('image_upload/', views.image_upload_view, name='image_upload'),
     path('video_input/', views.video_input, name='video_input'),
+    path('video_input01/', views.video_input01, name='video_input01'),
+    path('video_input02/', views.video_input02, name='video_input02'),
+    path('video_input03/', views.video_input03, name='video_input03'),
+
     path('video_input/video_stream', views.video_stream, name='video_input/video_stream'),
     path('video_input/video_save', views.video_save, name='video_input/video_save'),
 

@@ -102,7 +102,7 @@ class VideoCamera(object):
 
 		else:
 			self.begin = time.time()
-			self.passing = False
+
 
 
 		debug_image = self.draw_info(debug_image)
@@ -200,19 +200,8 @@ class VideoCamera(object):
 		return image
 
 	def select_mode(self, key, mode):
-		if key == 48:  # 0
-			mode = 0
+		self.mode = mode
 
-		elif key == 49:  # 1
-			mode = 1
-
-		elif key == 50:  # 2
-			mode = 2
-
-		elif key == 51:  # 3
-			mode = 3
-
-		return mode
 
 	def draw_hand_classification(self, image, hand_sign_id):
 		cv.putText(image, "YOUR STEP: " + hand_sign_id, (10, 120),

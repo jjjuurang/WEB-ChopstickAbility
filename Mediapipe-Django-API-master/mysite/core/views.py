@@ -80,6 +80,15 @@ def video_save(request):
 def video_input(request):
     return render(request, 'video_input.html')
 
+def video_input01(request):
+    return render(request, 'video_input01.html')
+
+def video_input02(request):
+    return render(request, 'video_input02.html')
+
+def video_input03(request):
+    return render(request, 'video_input03.html')
+
 def signup(request):
     if request.method == "POST":
         form = UserForm(request.POST)
@@ -93,3 +102,4 @@ def signup(request):
     else:
         form = UserForm()
     return render(request, 'signup.html', {'form': form})
+

@@ -1,5 +1,7 @@
 {% extends "base.html" %}
 {% block content %}
+{% load static %}
+<link rel="stylesheet" type="text/css" href="{% static 'css/back.css' %}">
 <div class="container my-3">
     <form method="post" action="{% url 'signup' %}">
         {% csrf_token %}

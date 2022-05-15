@@ -1,8 +1,55 @@
 body {
   background-color: #ebbd17;
-  background-image: url(main01.png);
+  background-image: url(main02.png);
   background-size: 1745px 880px;
   width: 1745px;
   background-attachment: fixed;
   background-repeat: no-repeat;
+}
+
+.nav-Game{
+border-radius: 10%;
+width: 600px;
+height: 450px;
+position: relative;
+top: 50px;
+left: 5%;
+}
+
+.nav-Tuto{
+border-radius: 10%;
+background-image: url(tt.png);
+width: 600px;
+height: 450px;
+position: relative;
+top: 50px;
+left: -10%;
+}
+
+.nav-Tutofirst{
+border: 1px solid;
+width: 600px;
+height: 50px;
+background-color: #ffffff;
+text-align: center;
+cursor: pointer;
+position: absolute;
+top: 115%;
+left: 11.3%;
+}
+
+.nav-Tutolast{
+width: 600px;
+height: 50px;
+position: absolute;
+top: 130%;
+left: 11.3%;
+}
+
+.nav-step00{
+width: 150px;
+height: 50px;
+position: absolute;
+top: 80%;
+right: 10%;
 }

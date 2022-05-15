@@ -25,13 +25,13 @@
                 </tr>
             </table>
             {% if user.is_authenticated %}
-            <button class="nav-step00"disabled>
-                step 01 end
-            </button>
+                <button class="nav-step00"disabled>
+                    back to home
+                </button>
             {% else %}
-            <button class="nav-step00">
-                <a class="nav-link" href="{% url 'video_input01' %}">step 01 end</a>
-            </button>
+                <button class="nav-step00">
+                    <a class="nav-link" href="{% url 'home' %}">back to home</a>
+                </button>
             {% endif %}
 
 
