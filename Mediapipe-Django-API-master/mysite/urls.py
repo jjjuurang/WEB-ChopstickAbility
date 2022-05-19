@@ -32,12 +32,19 @@ urlpatterns = [
     path('guide/', views.guide, name='guide'),
     path('home/', views.Home.as_view(), name='home'),
 
+    path('game_01/', views.game_01, name='game_01'),
+    path('game_02/', views.game_02, name='game_02'),
+    path('game_03/', views.game_03, name='game_03'),
+
+
     # four links according to the four bottons
     path('image_upload/', views.image_upload_view, name='image_upload'),
     path('video_input/', views.video_input, name='video_input'),
     path('video_input01/', views.video_input01, name='video_input01'),
     path('video_input02/', views.video_input02, name='video_input02'),
     path('video_input03/', views.video_input03, name='video_input03'),
+
+
 
     path('video_input/video_stream', views.video_stream, name='video_input/video_stream'),
     path('video_input/video_save', views.video_save, name='video_input/video_save'),
