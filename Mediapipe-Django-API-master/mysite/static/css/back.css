@@ -18,7 +18,6 @@ left: 5%;
 
 .nav-Tuto{
 border-radius: 10%;
-background-image: url(tt.png);
 width: 600px;
 height: 450px;
 position: relative;
@@ -27,24 +26,247 @@ left: -10%;
 }
 
 .nav-Tutofirst{
-border: 1px solid;
+border: 0px solid;
+border-radius: 15px;
 width: 600px;
-height: 50px;
-background-color: #ffffff;
+height: 83px;
 text-align: center;
 cursor: pointer;
 position: absolute;
 top: 115%;
 left: 11.3%;
+background: #ffffff;
+border: none;
+z-index: 1;
 }
 
-.nav-Tutolast{
-width: 600px;
-height: 50px;
+.nav-Tutofirst:after{
 position: absolute;
-top: 130%;
+content: "";
+width: 0;
+height: 100%;
+top: 0;
+right: 0;
+z-index: -1;
+background-color: #ADE7F7;
+border-radius: 15px;
+box-shadow:inset 2px 2px 2px 0px
+rgba(255,255,255,.5),7px 7px 20px 0px rgba(0,0,0,.1),4px 4px 5px 0px rgba(0,0,0,.1);
+  transition: all 0.3s ease;
+}
+
+.nav-Tutofirst:hover{
+color: #fff;
+}
+
+.nav-Tutofirst:hover:after{
+left: 0;
+width: 100%;
+}
+
+.nav-Tutofirst:active{
+top: 115%;
 left: 11.3%;
 }
+
+
+.nav-Tutolast{
+border: 0px solid;
+border-radius: 15px;
+width: 600px;
+height: 83px;
+background-color: #ffffff;
+text-decoration: none;
+color: #ffffff !important;
+position: absolute;
+top: 138%;
+left: 11.3%;
+background: #000000;
+border: none;
+z-index: 1;
+}
+
+.nav-Tutolast:after{
+position: absolute;
+content: "";
+width: 0;
+height: 100%;
+top: 0;
+right: 0;
+z-index: -1;
+background-color: #000066;
+border-radius: 15px;
+box-shadow:inset 2px 2px 2px 0px
+rgba(255,255,255,.5),7px 7px 20px 0px rgba(0,0,0,.1),4px 4px 5px 0px rgba(0,0,0,.1);
+  transition: all 0.3s ease;
+}
+
+.nav-Tutolast:hover{
+color: #fff;
+}
+
+.nav-Tutolast:hover:after{
+left: 0;
+width: 100%;
+}
+
+.nav-Tutolast:active{
+top: 138%;
+left: 11.3%;
+}
+
+
+
+
+
+
+
+
+
+.nav-gameeasy{
+border: 0px solid;
+border-radius: 15px;
+width: 600px;
+height: 50px;
+text-align: center;
+cursor: pointer;
+position: absolute;
+top: 115%;
+right: 9.58%;
+background: #E5FFCC;
+border: none;
+z-index: 1;
+}
+
+.nav-gameeasy:after{
+position: absolute;
+content: "";
+width: 0;
+height: 100%;
+top: 0;
+right: 0;
+z-index: -1;
+background-color: #80FF00;
+border-radius: 15px;
+box-shadow:inset 2px 2px 2px 0px
+rgba(255,255,255,.5),7px 7px 20px 0px rgba(0,0,0,.1),4px 4px 5px 0px rgba(0,0,0,.1);
+  transition: all 0.3s ease;
+}
+
+.nav-gameeasy:hover{
+color: #fff;
+}
+
+.nav-gameeasy:hover:after{
+left: 0;
+width: 100%;
+}
+
+.nav-gameeasy:active{
+top: 115%;
+right: 9.58%;
+}
+
+
+
+
+
+.nav-gamenormal{
+border: 0px solid;
+border-radius: 15px;
+width: 600px;
+height: 50px;
+text-align: center;
+cursor: pointer;
+position: absolute;
+top: 130%;
+right: 9.58%;
+background: #FFFFA6;
+border: none;
+z-index: 1;
+}
+
+.nav-gamenormal:after{
+position: absolute;
+content: "";
+width: 0;
+height: 100%;
+top: 0;
+right: 0;
+z-index: -1;
+background-color: #FFFF00;
+border-radius: 15px;
+box-shadow:inset 2px 2px 2px 0px
+rgba(255,255,255,.5),7px 7px 20px 0px rgba(0,0,0,.1),4px 4px 5px 0px rgba(0,0,0,.1);
+  transition: all 0.3s ease;
+}
+
+.nav-gamenormal:hover{
+color: #fff;
+}
+
+.nav-gamenormal:hover:after{
+left: 0;
+width: 100%;
+}
+
+.nav-gamenormal:active{
+top: 130%;
+right: 9.58%;
+}
+
+
+
+
+.nav-gamehard{
+border: 0px solid;
+border-radius: 15px;
+width: 600px;
+height: 50px;
+text-align: center;
+cursor: pointer;
+position: absolute;
+top: 145%;
+right: 9.58%;
+background: #FF6666;
+border: none;
+z-index: 1;
+}
+
+.nav-gamehard:after{
+position: absolute;
+content: "";
+width: 0;
+height: 100%;
+top: 0;
+right: 0;
+z-index: -1;
+background-color: #FF0000;
+border-radius: 15px;
+box-shadow:inset 2px 2px 2px 0px
+rgba(255,255,255,.5),7px 7px 20px 0px rgba(0,0,0,.1),4px 4px 5px 0px rgba(0,0,0,.1);
+  transition: all 0.3s ease;
+}
+
+.nav-gamehard:hover{
+color: #fff;
+}
+
+.nav-gamehard:hover:after{
+left: 0;
+width: 100%;
+}
+
+.nav-gamehard:active{
+top: 145%;
+right: 9.58%;
+}
+
+
+
+
+
+
 
 .nav-step00{
 width: 150px;
@@ -52,4 +274,21 @@ height: 50px;
 position: absolute;
 top: 80%;
 right: 10%;
+border: 0px solid;
+border-radius: 15px;
 }
+
+
+
+
+
+.nav-step01{
+width: 150px;
+height: 50px;
+position: absolute;
+top: 80%;
+right: 10%;
+
+}
+
+

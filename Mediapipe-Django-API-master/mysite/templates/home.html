@@ -9,17 +9,23 @@
     <div class="container">
       <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <div class="navbar-nav">
-          <button class="nav-Tuto">
-            <a href="{% url 'video_input' %}"><img src="static/css/tt.jpg"/></a>
-          </button>
-          <button class="nav-Game">
-            <a class="nav-link" href="{% url 'image_upload' %}">Game</a>
-          </button>
-          <button class="nav-Tutofirst some">
-            <a class="nav-link" href="{% url 'video_input' %}">go to the first step</a>
+          <img src="https://post-phinf.pstatic.net/MjAyMjA1MTlfMTcx/MDAxNjUyODg2MzU4OTEy.CAu2TALWRThTMzPgmzK_9ikkjiKHivu0ulKeQnv_xlIg.Zp03fKFfU6HCkwfavnnsCWuOlEzKlUyWDYmSykWPP3wg.PNG/tutorial.png?type=w1200" alt="" style="width:600px; height:450px; position: relative; top: 50px; left: -10%;">
+          <img src="https://post-phinf.pstatic.net/MjAyMjA1MTlfNCAg/MDAxNjUyODg2NDc4MzAy.oDzKR0WuMMOLkksdrjaC47632FM6SIM0w_cYD2RNvPQg.ekNfvwyl6UTb-6X9GNatMoUN0Ha46uflhR2IxvqDdBgg.PNG/gaming.png?type=w1200" alt="" style="width:600px; height:425px; position: relative; top: 75px; left: 5%;">
+          <button class="nav-Tutofirst">
+            <a class="nav-link" href="{% url 'video_input' %}" style="font-weight: bold; font-size: 25px;">HOW TO HOLD?</a>
           </button>
           <button class="nav-Tutolast">
-            <a class="nav-link" href="{% url 'video_input03' %}">go to the last step</a>
+            <a class="nav-link" href="{% url 'video_input03' %}" style="font-weight: bold; font-size: 25px; color: white;">I KNOW HOW TO HOLD </a>
+          </button>
+
+          <button class="nav-gameeasy">
+            <a class="nav-link" href="{% url 'video_input03' %}" style="font-weight: bold; font-size: 25px;">EASY</a>
+          </button>
+          <button class="nav-gamenormal">
+            <a class="nav-link" href="{% url 'video_input03' %}" style="font-weight: bold; font-size: 25px;">NORMAL</a>
+          </button>
+          <button class="nav-gamehard">
+            <a class="nav-link" href="{% url 'video_input03' %}" style="font-weight: bold; font-size: 25px;">HARD</a>
           </button>
         </div>
       </div>

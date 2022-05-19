@@ -89,6 +89,9 @@ def video_input02(request):
 def video_input03(request):
     return render(request, 'video_input03.html')
 
+def guide(request):
+    return render(request, 'guide.html')
+
 def signup(request):
     if request.method == "POST":
         form = UserForm(request.POST)
@@ -98,7 +101,7 @@ def signup(request):
             raw_password = form.cleaned_data.get('password1')
             user = authenticate(username=username, password=raw_password)  # 사용자 인증
             login(request, user)  # 로그인
-            return redirect('/home')
+            return redirect('/guide')
     else:
         form = UserForm()
     return render(request, 'signup.html', {'form': form})
