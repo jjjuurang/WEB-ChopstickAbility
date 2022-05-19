@@ -204,7 +204,7 @@ class VideoCamera(object):
 
 		return image
 
-	def select_mode(self, key, mode):
+	def select_mode(self, mode):
 		self.mode = mode
 
 
