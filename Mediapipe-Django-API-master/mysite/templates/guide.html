@@ -3,7 +3,8 @@
 {% block content %}
 {% load static %}
 <link rel="stylesheet" type="text/css" href="{% static 'css/back.css' %}">
-    <html>
+<img src="https://post-phinf.pstatic.net/MjAyMjA1MTlfMjky/MDAxNjUyODk1NDE5MDg5.nAYC5cgi0Es_Uq2frA-W0nfmjcR80WjzH8gRIGckMJEg.-0h8Et14iVa_DLbdIFe_BSEy_GMh52ZDxCWpgB-uQUEg.PNG/%EB%A7%90%EA%B8%B0_02.png" alt="" style="width:1744px; height:823px; position: relative;top: 0px; ">
+<html>
         <head>
            <script>
                 function call_counter(url) {
@@ -29,29 +30,10 @@
             </style>
         </head>
         <body>
-
-            <table>
-                <tr>
-                    <td width="50%">
-
-                        <img src="http://127.0.0.1:8000/video_input/video_stream" style="width:800px;" />
+<button class="nav-step00" style="border: 0px solid; border-radius: 15px; background-color: #BFDAFF; top: 12%; right: 3%">
+    <a class="nav-link" href="{% url 'home' %}" style="color: white;">Let's start</a>
+</button>
+</body>
 
 
-
-                    </td>
-                </tr>
-            </table>
-            {% if user.is_authenticated %}
-                <button class="nav-step00"disabled>
-                    step 03 end
-                </button>
-            {% else %}
-            <button class="nav-step00" style="border: 0px solid; border-radius: 10px; background-color: #BFDAFF;">
-                <a class="nav-link" href="{% url 'video_input03' %}" style="color: white;">step 03 end</a>
-            </button>
-            {% endif %}
-
-
-        </body>
-    </html>
 {% endblock %}

@@ -29,6 +29,7 @@ urlpatterns = [
     path('logout/', auth_views.LogoutView.as_view(), name='logout'),
     path('signup/', views.signup, name='signup'),
 
+    path('guide/', views.guide, name='guide'),
     path('home/', views.Home.as_view(), name='home'),
 
     # four links according to the four bottons
