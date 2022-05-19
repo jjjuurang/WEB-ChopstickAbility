@@ -2,6 +2,8 @@
 
 {% block content %}
 {% load static %}
+{% load my_custom_tags %}
+
 <link rel="stylesheet" type="text/css" href="{% static 'css/back.css' %}">
     <html>
         <head>
@@ -24,14 +26,17 @@
                     </td>
                 </tr>
             </table>
-            {% if user.is_authenticated %}
+            {% if my_tag == "False" %}
             <button class="nav-step00"disabled>
                 step 01 end
             </button>
+
+
             {% else %}
             <button class="nav-step00">
                 <a class="nav-link" href="{% url 'video_input01' %}">step 01 end</a>
             </button>
+
             {% endif %}
 
 
