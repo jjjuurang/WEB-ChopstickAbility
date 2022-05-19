@@ -94,6 +94,8 @@ def video_stream4(request):
     content_type='multipart/x-mixed-replace; boundary=frame')
     return vid
 
+
+
 def video_save(request):
     vid = StreamingHttpResponse(gen(VideoCamera(), True), 
     content_type='multipart/x-mixed-replace; boundary=frame')
