@@ -2,6 +2,8 @@
 
 {% block content %}
 {% load static %}
+{% load my_custom_tags %}
+
 <link rel="stylesheet" type="text/css" href="{% static 'css/back.css' %}">
     <html>
         <head>
@@ -34,21 +36,24 @@
                 <tr>
                     <td width="50%">
 
-                        <img src="http://127.0.0.1:8000/video_input/video_stream" style="width:800px;" />
+                        <img src="http://127.0.0.1:8000/video_input/video_stream1" style="width:800px;" />
 
 
 
                     </td>
                 </tr>
             </table>
-            {% if user.is_authenticated %}
+            {% if my_tag == "False" %}
             <button class="nav-step00"disabled>
                 step 01 end
             </button>
+
+
             {% else %}
             <button class="nav-step00" style="border: 0px solid; border-radius: 15px; background-color: #BFDAFF;">
                 <a class="nav-link" href="{% url 'video_input01' %}" style="color: white;">step 01 end</a>
             </button>
+
             {% endif %}
 
 

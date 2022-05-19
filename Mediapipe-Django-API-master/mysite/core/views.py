@@ -66,8 +66,30 @@ def _grab_image(path=None, stream=None, url=None):
 # for video input and detection
 # the whole thing, video
 # is returned as a streaming http response, or bytes
-def video_stream(request):
+def video_stream1(request):
     videoCamera = VideoCamera()
+    videoCamera.select_mode(0)
+    vid = StreamingHttpResponse(gen(videoCamera, False),
+    content_type='multipart/x-mixed-replace; boundary=frame')
+    return vid
+
+def video_stream2(request):
+    videoCamera = VideoCamera()
+    videoCamera.select_mode(1)
+    vid = StreamingHttpResponse(gen(videoCamera, False),
+    content_type='multipart/x-mixed-replace; boundary=frame')
+    return vid
+
+def video_stream3(request):
+    videoCamera = VideoCamera()
+    videoCamera.select_mode(2)
+    vid = StreamingHttpResponse(gen(videoCamera, False),
+    content_type='multipart/x-mixed-replace; boundary=frame')
+    return vid
+
+def video_stream4(request):
+    videoCamera = VideoCamera()
+    videoCamera.select_mode(3)
     vid = StreamingHttpResponse(gen(videoCamera, False),
     content_type='multipart/x-mixed-replace; boundary=frame')
     return vid

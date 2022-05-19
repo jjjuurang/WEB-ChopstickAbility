@@ -7,6 +7,7 @@ import cv2 as cv
 import numpy as np
 import mediapipe as mp
 
+
 # basically take camera input and convert it into a cv object
 # later to be processed by gen()
 from script.model.keypoint_classifier.keypoint_classifier import KeyPointClassifier
@@ -14,7 +15,7 @@ from script.model.keypoint_classifier.keypoint_classifier import KeyPointClassif
 
 class VideoCamera(object):
 	def __init__(self):
-		self.video = cv.VideoCapture(1)
+		self.video = cv.VideoCapture(0)
 		self.video.set(cv.CAP_PROP_FRAME_WIDTH, 960)
 		self.video.set(cv.CAP_PROP_FRAME_HEIGHT, 540)
 
@@ -54,6 +55,7 @@ class VideoCamera(object):
 			image = self.hand_video(success, image)
 
 		return image
+
 
 	def hand_video(self, flag, frame):
 		# For static images:
@@ -107,6 +109,9 @@ class VideoCamera(object):
 
 		debug_image = self.draw_info(debug_image)
 		return debug_image
+
+
+
 
 	def calc_bounding_rect(self, image, landmarks):
 		image_width, image_height = image.shape[1], image.shape[0]
@@ -199,7 +204,7 @@ class VideoCamera(object):
 
 		return image
 
-	def select_mode(self, key, mode):
+	def select_mode(self, mode):
 		self.mode = mode
 
 
@@ -209,6 +214,7 @@ class VideoCamera(object):
 				   cv.LINE_AA)
 
 		return image
+
 
 	def draw_info(self, image):
 		mode_string = ''
