@@ -100,6 +100,8 @@ class Game:
                     cv2.LINE_AA)
         return image
 
+    def get_score(self):
+        return self.score
 
 def gen(game):
     start = time.time()
