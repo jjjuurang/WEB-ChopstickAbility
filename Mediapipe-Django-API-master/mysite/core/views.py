@@ -116,15 +116,6 @@ def video_input03(request):
 def guide(request):
     return render(request, 'guide.html')
 
-def game_01(request):
-    return render(request, 'game_01.html')
-
-def game_02(request):
-    return render(request, 'game_02.html')
-
-def game_03(request):
-    return render(request, 'game_03.html')
-
 def signup(request):
     if request.method == "POST":
         form = UserForm(request.POST)

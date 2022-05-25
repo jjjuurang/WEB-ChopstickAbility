@@ -13,7 +13,6 @@ Including another URLconf
     1. Import the include() function: from django.urls import include, path
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
-from os import name
 from django.contrib import admin
 from django.urls import path
 from django.conf import settings
@@ -21,6 +20,7 @@ from django.conf.urls.static import static
 from django.contrib.auth import views as auth_views
 
 from mysite.core import views
+from mysite.game import views as game_views
 
 urlpatterns = [
 
@@ -32,10 +32,13 @@ urlpatterns = [
     path('guide/', views.guide, name='guide'),
     path('home/', views.Home.as_view(), name='home'),
 
-    path('game_01/', views.game_01, name='game_01'),
-    path('game_02/', views.game_02, name='game_02'),
-    path('game_03/', views.game_03, name='game_03'),
+    path('game_01/', game_views.game_01, name='game_01'),
+    path('game_02/', game_views.game_02, name='game_02'),
+    path('game_03/', game_views.game_03, name='game_03'),
 
+    path('game/game_easy', game_views.game_easy, name='game/game_easy'),
+    path('game/game_normal', game_views.game_normal, name='game/game_normal'),
+    path('game/game_hard', game_views.game_hard, name='game/game_hard'),
 
     # four links according to the four bottons
     path('image_upload/', views.image_upload_view, name='image_upload'),
