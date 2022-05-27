@@ -36,6 +36,8 @@ urlpatterns = [
     path('game_02/', views.game_02, name='game_02'),
     path('game_03/', views.game_03, name='game_03'),
 
+    path('ranking/', views.ranking, name='ranking'),
+
 
     # four links according to the four bottons
     path('image_upload/', views.image_upload_view, name='image_upload'),
@@ -50,6 +52,8 @@ urlpatterns = [
     path('video_input/video_save', views.video_save, name='video_input/video_save'),
 
     path('admin/', admin.site.urls),
+
+
 ]
 
 if settings.DEBUG:

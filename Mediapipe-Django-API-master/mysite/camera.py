@@ -11,8 +11,12 @@ import mediapipe as mp
 # later to be processed by gen()
 from script.model.keypoint_classifier.keypoint_classifier import KeyPointClassifier
 
+from django import template
 
 class VideoCamera(object):
+
+	global please
+
 	def __init__(self):
 		self.video = cv.VideoCapture(1)
 		self.video.set(cv.CAP_PROP_FRAME_WIDTH, 960)
@@ -55,11 +59,12 @@ class VideoCamera(object):
 
 		return image
 
+
 	def hand_video(self, flag, frame):
 		# For static images:
 		# parameters for the detector
-
 		# flip it along y axis
+
 		image = cv.flip(frame, 1)
 		debug_image = copy.deepcopy(image)
 		image = cv.cvtColor(image, cv.COLOR_BGR2RGB)
@@ -96,9 +101,14 @@ class VideoCamera(object):
 
 				passed = self.time_checker()
 
+
 				# 한번 패스되면 패스로 영구적 인식
 				if passed == True:
 					self.passing = True
+					please = 1
+				else:
+					please = 0
+
 
 		else:
 			self.begin = time.time()
@@ -106,7 +116,10 @@ class VideoCamera(object):
 
 
 		debug_image = self.draw_info(debug_image)
+
 		return debug_image
+
+
 
 	def calc_bounding_rect(self, image, landmarks):
 		image_width, image_height = image.shape[1], image.shape[0]
@@ -236,14 +249,6 @@ class VideoCamera(object):
 				   cv.LINE_AA)
 
 		return image
-
-
-
-
-
-
-
-
 
 
 

@@ -2,6 +2,7 @@
 
 {% block content %}
 {% load static %}
+{% load example01 %}
 <link rel="stylesheet" type="text/css" href="{% static 'css/back.css' %}">
     <html>
         <head>
@@ -50,6 +51,7 @@
                 <a class="nav-link" href="{% url 'video_input03' %}" style="color: white;">step 03 end</a>
             </button>
             {% endif %}
+        <p>{% my_tag %}</p>
 
 
         </body>

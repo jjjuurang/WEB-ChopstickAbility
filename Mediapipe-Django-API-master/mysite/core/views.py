@@ -17,6 +17,14 @@ from django.contrib.auth import authenticate, login
 from django.shortcuts import render, redirect
 from .forms import UserForm
 
+from django.http import HttpResponse
+
+
+
+#####################################################
+
+
+#####################################################
 
 class Home(TemplateView):
     template_name = 'home.html'
@@ -66,22 +74,28 @@ def _grab_image(path=None, stream=None, url=None):
 # for video input and detection
 # the whole thing, video
 # is returned as a streaming http response, or bytes
+
+
 def video_stream(request):
     videoCamera = VideoCamera()
     vid = StreamingHttpResponse(gen(videoCamera, False),
     content_type='multipart/x-mixed-replace; boundary=frame')
+
     return vid
 
 def video_save(request):
     vid = StreamingHttpResponse(gen(VideoCamera(), True), 
     content_type='multipart/x-mixed-replace; boundary=frame')
+
     return vid
 
 def video_input(request):
     return render(request, 'video_input.html')
 
 def video_input01(request):
-    return render(request, 'video_input01.html')
+    about = 1
+    context = {'about': about}
+    return render(request, 'video_input01.html', context)
 
 def video_input02(request):
     return render(request, 'video_input02.html')
@@ -101,6 +115,9 @@ def game_02(request):
 def game_03(request):
     return render(request, 'game_03.html')
 
+def ranking(request):
+    return render(request, 'ranking.html')
+
 def signup(request):
     if request.method == "POST":
         form = UserForm(request.POST)
@@ -114,4 +131,5 @@ def signup(request):
     else:
         form = UserForm()
     return render(request, 'signup.html', {'form': form})
+
 
