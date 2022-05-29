@@ -26,7 +26,7 @@ class Hand:
 
         self.hands = self.mp_hands.Hands(
             max_num_hands=1,
-            min_detection_confidence=0.8
+            min_detection_confidence=0.5
         )
 
     def hand_detect(self, frame):

@@ -53,11 +53,11 @@ class Game:
         hand_is_true, image = self.hand.hand_detect(image)
 
         # 손인식 되었으면 chopstick 확인, 중지와 가까이있는 이미지두개만 출력
-        # if hand_is_true:
-        #     image = self.chopstick.check_chopstick(image, self.hand.landmark_MIDDLE_FINGER_TIP)
+        if hand_is_true:
+            image = self.chopstick.check_chopstick(image, self.hand.landmark_MIDDLE_FINGER_TIP)
 
         # 우선은 hand와 같이두지않음
-        image = self.chopstick.check_chopstick(image, self.hand.landmark_MIDDLE_FINGER_TIP)
+        # image = self.chopstick.check_chopstick(image, self.hand.landmark_MIDDLE_FINGER_TIP)
 
         if not self.stars:
             self.stars.append(Star(self.speed, image_width, image_height))
@@ -66,16 +66,18 @@ class Game:
             if self.stars[-1].elapsed_time(now) >= self.regen_time:
                 self.stars.append(Star(self.speed, image_width, image_height))
             for i in range(len(self.stars)):
-                # if self.hand.hand_sign_id is not None and self.chopstick.boxes is not None:
-                #     if self.stars[i].check_inChopstick(self.chopstick.boxes) and (self.hand.hand_sign_id == 1 or self.hand.hand_sign_id == 2):
-                #         self.score += 1
-                #         print(self.score)
+                if self.hand.hand_sign_id is not None and self.chopstick.boxes is not None:
+                    if self.stars[i].check_inChopstick(self.chopstick.boxes) and (self.hand.hand_sign_id == 2):
+                        self.score += 1
+                        del self.stars[i]
+                        print(self.score)
+                        break
 
-                if self.stars[i].check_inChopstick(self.chopstick.boxes):
-                    self.score += 1
-                    del self.stars[i]
-                    print(self.score)
-                    break
+                # if self.stars[i].check_inChopstick(self.chopstick.boxes):
+                #     self.score += 1
+                #     del self.stars[i]
+                #     print(self.score)
+                #     break
 
                 if self.stars[i].check_timeover():
                     del self.stars[i]
