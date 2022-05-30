@@ -8,20 +8,16 @@ import numpy as np
 import mediapipe as mp
 
 
-import sqlite3
-
 # basically take camera input and convert it into a cv object
 # later to be processed by gen()
+from mysite.core.models import Tutorial
 from script.model.keypoint_classifier.keypoint_classifier import KeyPointClassifier
-
-con = sqlite3.connect('./db.sqlite3',check_same_thread=False)
-cur = con.cursor()
-
 
 class VideoCamera(object):
 
-    def __init__(self, username):
-        self.username = username
+    def __init__(self, user):
+
+        self.tutorial = Tutorial.objects.filter(NAME=user)
 
         self.video = cv.VideoCapture(0)
         self.video.set(cv.CAP_PROP_FRAME_WIDTH, 960)
@@ -107,11 +103,7 @@ class VideoCamera(object):
                 # 한번 패스되면 패스로 영구적 인식
                 if passed == True:
                     self.passing = True
-                    cur.execute("UPDATE tutorial SET STEP'%d' = ('%d') WHERE NAME IN ('%s')" % (self.mode + 1, 1, self.username))
-                    cur.execute("SELECT * FROM tutorial WHERE NAME IN('%s')" % (self.username))
-                    print(cur.fetchall())
-
-
+                    self.updateDB()
 
         else:
             self.begin = time.time()
@@ -247,6 +239,17 @@ class VideoCamera(object):
 
         return image
 
+    def updateDB(self):
+        if self.mode == 0:
+            self.tutorial.update(STEP1=1)
+        elif self.mode == 1:
+            self.tutorial.update(STEP2=1)
+        elif self.mode == 2:
+            self.tutorial.update(STEP3=1)
+        elif self.mode == 3:
+            self.tutorial.update(STEP4=1)
+
+
 
 # generator that saves the video captured if flag is set
 def gen(camera, flag):
@@ -277,3 +280,4 @@ def gen(camera, flag):
             frame = jpeg.tobytes()
             yield (b'--frame\r\n'
                    b'Content-Type: image/jpeg\r\n\r\n' + frame + b'\r\n\r\n')
+

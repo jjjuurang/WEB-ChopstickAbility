@@ -73,11 +73,12 @@ def _grab_image(path=None, stream=None, url=None):
 # the whole thing, video
 # is returned as a streaming http response, or bytes
 def video_stream1(request):
-    con = sqlite3.connect('./db.sqlite3', check_same_thread=False)
-    cur = con.cursor()
-    username = request.user.username
-    cur.execute("UPDATE tutorial SET STEP1 = '%d' WHERE NAME IN ('%s')" % (0, username))
-    videoCamera = VideoCamera(username)
+    userMODEL = get_user_model().objects.get(username=request.user.username)
+    print(userMODEL)
+
+    Tutorial.objects.filter(NAME=userMODEL).update(STEP1=0, STEP2=0, STEP3=0, STEP4=0)
+
+    videoCamera = VideoCamera(userMODEL)
     videoCamera.select_mode(0)
     vid = StreamingHttpResponse(gen(videoCamera, False),
                                 content_type='multipart/x-mixed-replace; boundary=frame')
@@ -85,11 +86,8 @@ def video_stream1(request):
 
 
 def video_stream2(request):
-    con = sqlite3.connect('./db.sqlite3', check_same_thread=False)
-    cur = con.cursor()
-    username = request.user.username
-    cur.execute("UPDATE tutorial SET STEP2 = '%d' WHERE NAME IN ('%s')" % (0, username))
-    videoCamera = VideoCamera(username)
+    userMODEL = get_user_model().objects.get(username=request.user.username)
+    videoCamera = VideoCamera(userMODEL)
     videoCamera.select_mode(1)
     vid = StreamingHttpResponse(gen(videoCamera, False),
                                 content_type='multipart/x-mixed-replace; boundary=frame')
@@ -97,11 +95,8 @@ def video_stream2(request):
 
 
 def video_stream3(request):
-    con = sqlite3.connect('./db.sqlite3', check_same_thread=False)
-    cur = con.cursor()
-    username = request.user.username
-    cur.execute("UPDATE tutorial SET STEP3 = '%d' WHERE NAME IN ('%s')" % (0, username))
-    videoCamera = VideoCamera(username)
+    userMODEL = get_user_model().objects.get(username=request.user.username)
+    videoCamera = VideoCamera(userMODEL)
     videoCamera.select_mode(2)
     vid = StreamingHttpResponse(gen(videoCamera, False),
                                 content_type='multipart/x-mixed-replace; boundary=frame')
@@ -109,12 +104,8 @@ def video_stream3(request):
 
 
 def video_stream4(request):
-    con = sqlite3.connect('./db.sqlite3', check_same_thread=False)
-    cur = con.cursor()
-    username = request.user.username
-    cur.execute("UPDATE tutorial SET STEP4 = '%d' WHERE NAME IN ('%s')" % (0, username))
-
-    videoCamera = VideoCamera(username)
+    userMODEL = get_user_model().objects.get(username=request.user.username)
+    videoCamera = VideoCamera(userMODEL)
     videoCamera.select_mode(3)
     vid = StreamingHttpResponse(gen(videoCamera, False),
                                 content_type='multipart/x-mixed-replace; boundary=frame')
