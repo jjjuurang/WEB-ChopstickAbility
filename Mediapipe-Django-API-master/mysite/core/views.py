@@ -3,6 +3,8 @@ from django.views.generic import TemplateView, ListView, CreateView
 from django.core.files.storage import FileSystemStorage
 from django.urls import reverse_lazy
 
+from django.contrib.auth import get_user_model
+
 from .forms import ImageForm
 
 import urllib
@@ -18,6 +20,7 @@ from django.shortcuts import render, redirect
 from .forms import UserForm
 
 import sqlite3
+from .models import Tutorial
 
 
 class Home(TemplateView):
@@ -70,7 +73,11 @@ def _grab_image(path=None, stream=None, url=None):
 # the whole thing, video
 # is returned as a streaming http response, or bytes
 def video_stream1(request):
-    videoCamera = VideoCamera()
+    con = sqlite3.connect('./db.sqlite3', check_same_thread=False)
+    cur = con.cursor()
+    username = request.user.username
+    cur.execute("UPDATE tutorial SET STEP1 = '%d' WHERE NAME IN ('%s')" % (0, username))
+    videoCamera = VideoCamera(username)
     videoCamera.select_mode(0)
     vid = StreamingHttpResponse(gen(videoCamera, False),
                                 content_type='multipart/x-mixed-replace; boundary=frame')
@@ -78,7 +85,11 @@ def video_stream1(request):
 
 
 def video_stream2(request):
-    videoCamera = VideoCamera()
+    con = sqlite3.connect('./db.sqlite3', check_same_thread=False)
+    cur = con.cursor()
+    username = request.user.username
+    cur.execute("UPDATE tutorial SET STEP2 = '%d' WHERE NAME IN ('%s')" % (0, username))
+    videoCamera = VideoCamera(username)
     videoCamera.select_mode(1)
     vid = StreamingHttpResponse(gen(videoCamera, False),
                                 content_type='multipart/x-mixed-replace; boundary=frame')
@@ -86,7 +97,11 @@ def video_stream2(request):
 
 
 def video_stream3(request):
-    videoCamera = VideoCamera()
+    con = sqlite3.connect('./db.sqlite3', check_same_thread=False)
+    cur = con.cursor()
+    username = request.user.username
+    cur.execute("UPDATE tutorial SET STEP3 = '%d' WHERE NAME IN ('%s')" % (0, username))
+    videoCamera = VideoCamera(username)
     videoCamera.select_mode(2)
     vid = StreamingHttpResponse(gen(videoCamera, False),
                                 content_type='multipart/x-mixed-replace; boundary=frame')
@@ -94,7 +109,12 @@ def video_stream3(request):
 
 
 def video_stream4(request):
-    videoCamera = VideoCamera()
+    con = sqlite3.connect('./db.sqlite3', check_same_thread=False)
+    cur = con.cursor()
+    username = request.user.username
+    cur.execute("UPDATE tutorial SET STEP4 = '%d' WHERE NAME IN ('%s')" % (0, username))
+
+    videoCamera = VideoCamera(username)
     videoCamera.select_mode(3)
     vid = StreamingHttpResponse(gen(videoCamera, False),
                                 content_type='multipart/x-mixed-replace; boundary=frame')
@@ -128,8 +148,9 @@ def guide(request):
 
 
 def signup(request):
-    con = sqlite3.connect('./db.sqlite3')
+    con = sqlite3.connect('./db.sqlite3', check_same_thread=False)
     cur = con.cursor()
+
     if request.method == "POST":
         form = UserForm(request.POST)
         if form.is_valid():
@@ -139,13 +160,13 @@ def signup(request):
             user = authenticate(username=username, password=raw_password)  # 사용자 인증
             login(request, user)  # 로그인
 
-            cur.execute("SELECT * FROM auth_user WHERE username IN('%s')" % (username))
-            print(cur.fetchall())
+            userMODEL = get_user_model().objects.get(username=username)
+            print(userMODEL)
+            tutorial = Tutorial(NAME=userMODEL, STEP1=0, STEP2=0, STEP3=0, STEP4=0)
+            tutorial.save()
 
-            cur.execute("INSERT INTO tutorial Values(:NAME,:STEP1,:STEP2,:STEP3,:STEP4);",
-                        {"NAME": username, "STEP1": 0, "STEP2": 0, "STEP3": 0, "STEP4": 0})
-            cur.execute("SELECT * FROM tutorial")
-            print(cur.fetchall())
+            rows = Tutorial.objects.get(NAME=userMODEL)
+            print(rows.NAME, rows.STEP1, rows.STEP2, rows.STEP3, rows.STEP4)
 
             return redirect('/guide')
     else:

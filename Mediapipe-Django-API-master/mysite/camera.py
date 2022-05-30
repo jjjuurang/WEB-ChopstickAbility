@@ -7,13 +7,22 @@ import cv2 as cv
 import numpy as np
 import mediapipe as mp
 
+
+import sqlite3
+
 # basically take camera input and convert it into a cv object
 # later to be processed by gen()
 from script.model.keypoint_classifier.keypoint_classifier import KeyPointClassifier
 
+con = sqlite3.connect('./db.sqlite3',check_same_thread=False)
+cur = con.cursor()
+
 
 class VideoCamera(object):
-    def __init__(self):
+
+    def __init__(self, username):
+        self.username = username
+
         self.video = cv.VideoCapture(0)
         self.video.set(cv.CAP_PROP_FRAME_WIDTH, 960)
         self.video.set(cv.CAP_PROP_FRAME_HEIGHT, 540)
@@ -98,6 +107,11 @@ class VideoCamera(object):
                 # 한번 패스되면 패스로 영구적 인식
                 if passed == True:
                     self.passing = True
+                    cur.execute("UPDATE tutorial SET STEP'%d' = ('%d') WHERE NAME IN ('%s')" % (self.mode + 1, 1, self.username))
+                    cur.execute("SELECT * FROM tutorial WHERE NAME IN('%s')" % (self.username))
+                    print(cur.fetchall())
+
+
 
         else:
             self.begin = time.time()
