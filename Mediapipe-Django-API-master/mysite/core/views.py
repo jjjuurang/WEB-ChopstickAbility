@@ -3,7 +3,7 @@ from django.views.generic import TemplateView, ListView, CreateView
 from django.core.files.storage import FileSystemStorage
 from django.urls import reverse_lazy
 
-from .forms import  ImageForm
+from .forms import ImageForm
 
 import urllib
 import numpy as np
@@ -16,6 +16,8 @@ from django.http import StreamingHttpResponse
 from django.contrib.auth import authenticate, login
 from django.shortcuts import render, redirect
 from .forms import UserForm
+
+import sqlite3
 
 
 class Home(TemplateView):
@@ -47,21 +49,22 @@ def image_upload_view(request):
 # a helper function to convert img.url into a cv.img object
 # for image upload and detection only
 def _grab_image(path=None, stream=None, url=None):
-	if path is not None:
-		image = cv2.imread(path)
-	else:	
-		if url is not None:
-			resp = urllib.urlopen(url)
-			data = resp.read()
-		elif stream is not None:
-			data = stream.read()
-		# convert the image to a NumPy array and then read it into
-		# OpenCV format
-		image = np.asarray(bytearray(data), dtype="uint8")
-		image = cv2.imdecode(image, cv2.IMREAD_COLOR)
- 
-	# return the image
-	return image
+    if path is not None:
+        image = cv2.imread(path)
+    else:
+        if url is not None:
+            resp = urllib.urlopen(url)
+            data = resp.read()
+        elif stream is not None:
+            data = stream.read()
+        # convert the image to a NumPy array and then read it into
+        # OpenCV format
+        image = np.asarray(bytearray(data), dtype="uint8")
+        image = cv2.imdecode(image, cv2.IMREAD_COLOR)
+
+    # return the image
+    return image
+
 
 # for video input and detection
 # the whole thing, video
@@ -70,53 +73,63 @@ def video_stream1(request):
     videoCamera = VideoCamera()
     videoCamera.select_mode(0)
     vid = StreamingHttpResponse(gen(videoCamera, False),
-    content_type='multipart/x-mixed-replace; boundary=frame')
+                                content_type='multipart/x-mixed-replace; boundary=frame')
     return vid
+
 
 def video_stream2(request):
     videoCamera = VideoCamera()
     videoCamera.select_mode(1)
     vid = StreamingHttpResponse(gen(videoCamera, False),
-    content_type='multipart/x-mixed-replace; boundary=frame')
+                                content_type='multipart/x-mixed-replace; boundary=frame')
     return vid
+
 
 def video_stream3(request):
     videoCamera = VideoCamera()
     videoCamera.select_mode(2)
     vid = StreamingHttpResponse(gen(videoCamera, False),
-    content_type='multipart/x-mixed-replace; boundary=frame')
+                                content_type='multipart/x-mixed-replace; boundary=frame')
     return vid
+
 
 def video_stream4(request):
     videoCamera = VideoCamera()
     videoCamera.select_mode(3)
     vid = StreamingHttpResponse(gen(videoCamera, False),
-    content_type='multipart/x-mixed-replace; boundary=frame')
+                                content_type='multipart/x-mixed-replace; boundary=frame')
     return vid
-
 
 
 def video_save(request):
-    vid = StreamingHttpResponse(gen(VideoCamera(), True), 
-    content_type='multipart/x-mixed-replace; boundary=frame')
+    vid = StreamingHttpResponse(gen(VideoCamera(), True),
+                                content_type='multipart/x-mixed-replace; boundary=frame')
     return vid
+
 
 def video_input(request):
     return render(request, 'video_input.html')
 
+
 def video_input01(request):
     return render(request, 'video_input01.html')
+
 
 def video_input02(request):
     return render(request, 'video_input02.html')
 
+
 def video_input03(request):
     return render(request, 'video_input03.html')
+
 
 def guide(request):
     return render(request, 'guide.html')
 
+
 def signup(request):
+    con = sqlite3.connect('./db.sqlite3')
+    cur = con.cursor()
     if request.method == "POST":
         form = UserForm(request.POST)
         if form.is_valid():
@@ -125,8 +138,16 @@ def signup(request):
             raw_password = form.cleaned_data.get('password1')
             user = authenticate(username=username, password=raw_password)  # 사용자 인증
             login(request, user)  # 로그인
+
+            cur.execute("SELECT * FROM auth_user WHERE username IN('%s')" % (username))
+            print(cur.fetchall())
+
+            cur.execute("INSERT INTO tutorial Values(:NAME,:STEP1,:STEP2,:STEP3,:STEP4);",
+                        {"NAME": username, "STEP1": 0, "STEP2": 0, "STEP3": 0, "STEP4": 0})
+            cur.execute("SELECT * FROM tutorial")
+            print(cur.fetchall())
+
             return redirect('/guide')
     else:
         form = UserForm()
     return render(request, 'signup.html', {'form': form})
-
