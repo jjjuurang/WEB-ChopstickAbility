@@ -15,12 +15,13 @@ Including another URLconf
 """
 from os import name
 from django.contrib import admin
-from django.urls import path
+from django.urls import path, re_path
 from django.conf import settings
 from django.conf.urls.static import static
 from django.contrib.auth import views as auth_views
 
 from mysite.core import views
+from mysite.game import views as game_views
 
 urlpatterns = [
 
@@ -32,9 +33,14 @@ urlpatterns = [
     path('guide/', views.guide, name='guide'),
     path('home/', views.Home.as_view(), name='home'),
 
-    path('game_01/', views.game_01, name='game_01'),
-    path('game_02/', views.game_02, name='game_02'),
-    path('game_03/', views.game_03, name='game_03'),
+    path('game_01/', game_views.game_01, name='game_01'),
+    path('game_02/', game_views.game_02, name='game_02'),
+    path('game_03/', game_views.game_03, name='game_03'),
+
+    path('game/game_easy', game_views.game_easy, name='game/game_easy'),
+    path('game/game_normal', game_views.game_normal, name='game/game_normal'),
+    path('game/game_hard', game_views.game_hard, name='game/game_hard'),
+    path('ranking/', views.ranking, name='ranking'),
 
 
     # four links according to the four bottons
@@ -43,7 +49,9 @@ urlpatterns = [
     path('video_input01/', views.video_input01, name='video_input01'),
     path('video_input02/', views.video_input02, name='video_input02'),
     path('video_input03/', views.video_input03, name='video_input03'),
+    path('video_know/', views.video_know, name='video_know'),
 
+    re_path(r'video_input/refresh_step1/(?P<username>[\w-]+)/$', views.refresh_step1, name='refresh_step1'),
 
     path('video_input/video_stream1', views.video_stream1, name='video_input/video_stream1'),
     path('video_input/video_stream2', views.video_stream2, name='video_input/video_stream2'),

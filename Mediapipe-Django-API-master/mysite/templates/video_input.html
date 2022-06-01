@@ -2,8 +2,6 @@
 
 {% block content %}
 {% load static %}
-{% load my_custom_tags %}
-
 <link rel="stylesheet" type="text/css" href="{% static 'css/back.css' %}">
     <html>
         <head>
@@ -36,28 +34,55 @@
                 <tr>
                     <td width="50%">
 
-                        <img src="http://127.0.0.1:8000/video_input/video_stream1" style="width:800px;" />
+                        <img src="http://127.0.0.1:8000/video_input/video_stream1" style="width:45%; height: 72%; position: absolute; top: 23%; left: 3%;" />
 
 
 
                     </td>
                 </tr>
             </table>
-            {% if my_tag == "False" %}
-            <button class="nav-step00"disabled>
-                step 01 end
-            </button>
 
+        <embed src="https://serviceapi.nmv.naver.com/flash/convertIframeTag.nhn?vid=D3A9D4A8C7346D69D938BA6B3D1A47100729&outKey=V125a34808a09b71f1a0ecaa812ebaf29391f0fc0bca12d49d277caa812ebaf29391f&width=544&height=306" style="width: 45%; height: 33%; position: absolute; top: 23%; right: 3%"></embed>
 
-            {% else %}
-            <button class="nav-step00" style="border: 0px solid; border-radius: 15px; background-color: #BFDAFF;">
-                <a class="nav-link" href="{% url 'video_input01' %}" style="color: white;">step 01 end</a>
-            </button>
+         <div class="pictureguide01" style="width: 45%; position: absolute; top: 58%; right: 3%; text-align: left; font-weight: bold; font-size: 20px;">
+            ↓ left: 'Step 1' reflection on the camera
+        </div>
 
-            {% endif %}
+        <div class="pictureguide00" style="width: 21.5%; position: absolute; top: 58%; right: 3%; text-align: left; font-weight: bold; font-size: 20px;">
+            ↓ right: 'Step 1' on a Frontal view
+        </div>
+
+        <img src="https://post-phinf.pstatic.net/MjAyMjA1MzBfMjUw/MDAxNjUzOTEwNjUzMTYz.kmWZJdXEHsaCEY5QfAWr9xZoGcfpVbTfYuJYAu1Ms2og.dqTH62byTZSyqLeiim_eXU-A8I8AE0Fo5LGL3Ob_vVcg.PNG/step01_01.png?type=w1200" alt="" style="width: 45%; height:33%; position: absolute; top: 62%; right: 3%;">
+
+        <audio autoplay="autoplay" controls loop="infinite">
+            <source src="https://blogattach.naver.com/099c15a6bdeded311dfe99a294750d70d689779b75/20220531_282_blogfile/kjhjhj731_1653923909200_z3pO79_mp3/cute.mp3" >
+        </audio>
+
 
 
 
         </body>
+    <script>
+                setInterval(
+                function refresh_step1(){
+
+                    $.ajax({
+                        url: 'http://127.0.0.1:8000/video_input/refresh_step1/'+'{{request.user.username}}'+'/',
+                        type: 'GET',
+                        dataType: 'json',
+                        data: {},
+
+                        success: function(data){
+                            console.log(data.step1);
+
+                            if(data.step1 == "True"){
+                                console.log("PASS");
+                                location.href="{% url 'video_input01' %}"
+                            }
+                        }
+                    });
+                }, 1000);
+
+    </script>
     </html>
 {% endblock %}

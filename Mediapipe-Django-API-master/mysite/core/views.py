@@ -1,9 +1,12 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
+from django.views.decorators.csrf import csrf_exempt
 from django.views.generic import TemplateView, ListView, CreateView
 from django.core.files.storage import FileSystemStorage
 from django.urls import reverse_lazy
 
-from .forms import  ImageForm
+from django.contrib.auth import get_user_model
+
+from .forms import ImageForm
 
 import urllib
 import numpy as np
@@ -11,11 +14,14 @@ from script.hand_image_detector import hand_detection
 import cv2
 
 from mysite.camera import VideoCamera, gen
-from django.http import StreamingHttpResponse
+from django.http import StreamingHttpResponse, JsonResponse
 
 from django.contrib.auth import authenticate, login
 from django.shortcuts import render, redirect
 from .forms import UserForm
+
+import sqlite3
+from .models import Tutorial
 
 
 class Home(TemplateView):
@@ -67,34 +73,43 @@ def _grab_image(path=None, stream=None, url=None):
 # the whole thing, video
 # is returned as a streaming http response, or bytes
 def video_stream1(request):
-    videoCamera = VideoCamera()
+    userMODEL = get_user_model().objects.get(username=request.user.username)
+    print(userMODEL)
+
+    Tutorial.objects.filter(NAME=userMODEL).update(STEP1=0, STEP2=0, STEP3=0, STEP4=0)
+
+    videoCamera = VideoCamera(userMODEL)
     videoCamera.select_mode(0)
     vid = StreamingHttpResponse(gen(videoCamera, False),
-    content_type='multipart/x-mixed-replace; boundary=frame')
+                                content_type='multipart/x-mixed-replace; boundary=frame')
     return vid
+
 
 def video_stream2(request):
-    videoCamera = VideoCamera()
+    userMODEL = get_user_model().objects.get(username=request.user.username)
+    videoCamera = VideoCamera(userMODEL)
     videoCamera.select_mode(1)
     vid = StreamingHttpResponse(gen(videoCamera, False),
-    content_type='multipart/x-mixed-replace; boundary=frame')
+                                content_type='multipart/x-mixed-replace; boundary=frame')
     return vid
+
 
 def video_stream3(request):
-    videoCamera = VideoCamera()
+    userMODEL = get_user_model().objects.get(username=request.user.username)
+    videoCamera = VideoCamera(userMODEL)
     videoCamera.select_mode(2)
     vid = StreamingHttpResponse(gen(videoCamera, False),
-    content_type='multipart/x-mixed-replace; boundary=frame')
+                                content_type='multipart/x-mixed-replace; boundary=frame')
     return vid
 
+
 def video_stream4(request):
-    videoCamera = VideoCamera()
+    userMODEL = get_user_model().objects.get(username=request.user.username)
+    videoCamera = VideoCamera(userMODEL)
     videoCamera.select_mode(3)
     vid = StreamingHttpResponse(gen(videoCamera, False),
     content_type='multipart/x-mixed-replace; boundary=frame')
     return vid
-
-
 
 def video_save(request):
     vid = StreamingHttpResponse(gen(VideoCamera(), True), 
@@ -103,6 +118,51 @@ def video_save(request):
 
 def video_input(request):
     return render(request, 'video_input.html')
+
+
+@csrf_exempt
+def refresh_step1(request, username):
+    userMODEL = get_user_model().objects.get(username=request.user.username)
+
+    object = get_object_or_404(get_user_model(), username=userMODEL.username)
+
+    print(userMODEL)
+
+    tutorial = Tutorial.objects.get(NAME=userMODEL)
+    print(tutorial)
+
+    true = 'True'
+    false = 'False'
+
+    if tutorial.STEP1 == 1:
+        step1 = true
+    else:
+        step1 = false
+
+    if tutorial.STEP2 == 1:
+        step2 = true
+    else:
+        step2 = false
+
+    if tutorial.STEP3 == 1:
+        step3 = true
+    else:
+        step3 = false
+
+    if tutorial.STEP4 == 1:
+        step4 = true
+    else:
+        step4 = false
+
+    print(step1)
+    context = {'step1': step1,
+               'step2': step2,
+               'step3': step3,
+               'step4': step4
+               }
+
+    return JsonResponse(context)
+
 
 def video_input01(request):
     return render(request, 'video_input01.html')
@@ -116,14 +176,9 @@ def video_input03(request):
 def guide(request):
     return render(request, 'guide.html')
 
-def game_01(request):
-    return render(request, 'game_01.html')
 
-def game_02(request):
-    return render(request, 'game_02.html')
-
-def game_03(request):
-    return render(request, 'game_03.html')
+def ranking(request):
+    return render(request, 'ranking.html')
 
 def signup(request):
     if request.method == "POST":
@@ -134,8 +189,19 @@ def signup(request):
             raw_password = form.cleaned_data.get('password1')
             user = authenticate(username=username, password=raw_password)  # 사용자 인증
             login(request, user)  # 로그인
+
+            userMODEL = get_user_model().objects.get(username=username)
+            print(userMODEL)
+            tutorial = Tutorial(NAME=userMODEL, STEP1=0, STEP2=0, STEP3=0, STEP4=0)
+            tutorial.save()
+
+            rows = Tutorial.objects.get(NAME=userMODEL)
+            print(rows.NAME, rows.STEP1, rows.STEP2, rows.STEP3, rows.STEP4)
+
             return redirect('/guide')
     else:
         form = UserForm()
     return render(request, 'signup.html', {'form': form})
 
+def video_know(request):
+    return render(request, 'video_know.html')
