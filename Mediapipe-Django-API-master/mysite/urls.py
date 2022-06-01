@@ -14,7 +14,7 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from django.contrib import admin
-from django.urls import path
+from django.urls import path, re_path
 from django.conf import settings
 from django.conf.urls.static import static
 from django.contrib.auth import views as auth_views
@@ -47,6 +47,7 @@ urlpatterns = [
     path('video_input02/', views.video_input02, name='video_input02'),
     path('video_input03/', views.video_input03, name='video_input03'),
 
+    re_path(r'video_input/refresh_step1/(?P<username>[\w-]+)/$', views.refresh_step1, name='refresh_step1'),
 
     path('video_input/video_stream1', views.video_stream1, name='video_input/video_stream1'),
     path('video_input/video_stream2', views.video_stream2, name='video_input/video_stream2'),

@@ -40,9 +40,6 @@
                     <td width="50%">
 
                         <img src="http://127.0.0.1:8000/video_input/video_stream1" style="height: 500px;width:800px; position: absolute; top: 25%; left:3%;" />
-
-
-
                     </td>
                 </tr>
             </table>
@@ -61,6 +58,31 @@
 
 
 
+            <div id="div_id">
+            </div>
         </body>
+    <script>
+                setInterval(
+                function refresh_step1(){
+
+                    $.ajax({
+                        url: 'http://127.0.0.1:8000/video_input/refresh_step1/'+'{{request.user.username}}'+'/',
+                        type: 'GET',
+                        dataType: 'json',
+                        data: {},
+
+                        success: function(data){
+                            console.log(data.refresh);
+                            console.log({{request.Tutorial.STEP1}});
+
+                            if(data.refresh == "True"){
+                                console.log("PASS");
+                                location.href="{% url 'video_input01' %}"
+                            }
+                        }
+                    });
+                }, 1000);
+
+    </script>
     </html>
 {% endblock %}

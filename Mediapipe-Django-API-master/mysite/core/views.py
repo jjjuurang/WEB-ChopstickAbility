@@ -1,4 +1,5 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
+from django.views.decorators.csrf import csrf_exempt
 from django.views.generic import TemplateView, ListView, CreateView
 from django.core.files.storage import FileSystemStorage
 from django.urls import reverse_lazy
@@ -13,7 +14,7 @@ from script.hand_image_detector import hand_detection
 import cv2
 
 from mysite.camera import VideoCamera, gen
-from django.http import StreamingHttpResponse
+from django.http import StreamingHttpResponse, JsonResponse
 
 from django.contrib.auth import authenticate, login
 from django.shortcuts import render, redirect
@@ -120,6 +121,28 @@ def video_save(request):
 
 def video_input(request):
     return render(request, 'video_input.html')
+
+
+@csrf_exempt
+def refresh_step1(request, username):
+    userMODEL = get_user_model().objects.get(username=request.user.username)
+
+    object = get_object_or_404(get_user_model(), username=userMODEL.username)
+
+    print(userMODEL)
+
+    tutorial = Tutorial.objects.get(NAME=userMODEL)
+    print(tutorial)
+
+    if tutorial.STEP1 == 1:
+        refresh = 'True'
+    else:
+        refresh = 'False'
+
+    print(refresh)
+    context = {'refresh': refresh}
+
+    return JsonResponse(context)
 
 
 def video_input01(request):
