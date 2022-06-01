@@ -134,13 +134,35 @@ def refresh_step1(request, username):
     tutorial = Tutorial.objects.get(NAME=userMODEL)
     print(tutorial)
 
-    if tutorial.STEP1 == 1:
-        refresh = 'True'
-    else:
-        refresh = 'False'
+    true = 'True'
+    false = 'False'
 
-    print(refresh)
-    context = {'refresh': refresh}
+    if tutorial.STEP1 == 1:
+        step1 = true
+    else:
+        step1 = false
+
+    if tutorial.STEP2 == 1:
+        step2 = true
+    else:
+        step2 = false
+
+    if tutorial.STEP3 == 1:
+        step3 = true
+    else:
+        step3 = false
+
+    if tutorial.STEP4 == 1:
+        step4 = true
+    else:
+        step4 = false
+
+    print(step1)
+    context = {'step1': step1,
+               'step2': step2,
+               'step3': step3,
+               'step4': step4
+               }
 
     return JsonResponse(context)
 

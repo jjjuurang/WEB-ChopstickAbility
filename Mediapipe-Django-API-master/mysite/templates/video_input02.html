@@ -56,5 +56,27 @@
 
 
         </body>
+        <script>
+                setInterval(
+                function refresh_step3(){
+
+                    $.ajax({
+                        url: 'http://127.0.0.1:8000/video_input/refresh_step1/'+'{{request.user.username}}'+'/',
+                        type: 'GET',
+                        dataType: 'json',
+                        data: {},
+
+                        success: function(data){
+                            console.log(data.step3);
+
+                            if(data.step3 == "True"){
+                                console.log("PASS");
+                                location.href="{% url 'video_input03' %}"
+                            }
+                        }
+                    });
+                }, 1000);
+
+    </script>
     </html>
 {% endblock %}

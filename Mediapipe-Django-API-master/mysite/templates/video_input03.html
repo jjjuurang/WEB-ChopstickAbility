@@ -55,8 +55,28 @@
                 </button>
             {% endif %}
 
-
-
         </body>
+        <script>
+                setInterval(
+                function refresh_step4(){
+
+                    $.ajax({
+                        url: 'http://127.0.0.1:8000/video_input/refresh_step1/'+'{{request.user.username}}'+'/',
+                        type: 'GET',
+                        dataType: 'json',
+                        data: {},
+
+                        success: function(data){
+                            console.log(data.step4);
+
+                            if(data.step4 == "True"){
+                                console.log("PASS");
+                                location.href="{% url 'home' %}"
+                            }
+                        }
+                    });
+                }, 1000);
+
+    </script>
     </html>
 {% endblock %}

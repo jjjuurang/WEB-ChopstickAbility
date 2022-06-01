@@ -46,7 +46,7 @@ class VideoCamera(object):
         self.hands = self.mp_hands.Hands(
             static_image_mode=True,
             max_num_hands=1,
-            min_detection_confidence=0.8
+            min_detection_confidence=0.3
         )
 
     def __del__(self):
