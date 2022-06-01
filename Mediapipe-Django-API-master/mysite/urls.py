@@ -13,6 +13,7 @@ Including another URLconf
     1. Import the include() function: from django.urls import include, path
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
+from os import name
 from django.contrib import admin
 from django.urls import path, re_path
 from django.conf import settings
@@ -39,6 +40,8 @@ urlpatterns = [
     path('game/game_easy', game_views.game_easy, name='game/game_easy'),
     path('game/game_normal', game_views.game_normal, name='game/game_normal'),
     path('game/game_hard', game_views.game_hard, name='game/game_hard'),
+    path('ranking/', views.ranking, name='ranking'),
+
 
     # four links according to the four bottons
     path('image_upload/', views.image_upload_view, name='image_upload'),
@@ -46,6 +49,7 @@ urlpatterns = [
     path('video_input01/', views.video_input01, name='video_input01'),
     path('video_input02/', views.video_input02, name='video_input02'),
     path('video_input03/', views.video_input03, name='video_input03'),
+    path('video_know/', views.video_know, name='video_know'),
 
     re_path(r'video_input/refresh_step1/(?P<username>[\w-]+)/$', views.refresh_step1, name='refresh_step1'),
 
@@ -54,6 +58,7 @@ urlpatterns = [
     path('video_input/video_stream3', views.video_stream3, name='video_input/video_stream3'),
     path('video_input/video_stream4', views.video_stream4, name='video_input/video_stream4'),
 
+    path('video_input/video_stream', views.video_stream, name='video_input/video_stream'),
     path('video_input/video_save', views.video_save, name='video_input/video_save'),
 
     path('admin/', admin.site.urls),

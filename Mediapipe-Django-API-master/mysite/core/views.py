@@ -53,22 +53,21 @@ def image_upload_view(request):
 # a helper function to convert img.url into a cv.img object
 # for image upload and detection only
 def _grab_image(path=None, stream=None, url=None):
-    if path is not None:
-        image = cv2.imread(path)
-    else:
-        if url is not None:
-            resp = urllib.urlopen(url)
-            data = resp.read()
-        elif stream is not None:
-            data = stream.read()
-        # convert the image to a NumPy array and then read it into
-        # OpenCV format
-        image = np.asarray(bytearray(data), dtype="uint8")
-        image = cv2.imdecode(image, cv2.IMREAD_COLOR)
-
-    # return the image
-    return image
-
+	if path is not None:
+		image = cv2.imread(path)
+	else:	
+		if url is not None:
+			resp = urllib.urlopen(url)
+			data = resp.read()
+		elif stream is not None:
+			data = stream.read()
+		# convert the image to a NumPy array and then read it into
+		# OpenCV format
+		image = np.asarray(bytearray(data), dtype="uint8")
+		image = cv2.imdecode(image, cv2.IMREAD_COLOR)
+ 
+	# return the image
+	return image
 
 # for video input and detection
 # the whole thing, video
@@ -109,15 +108,13 @@ def video_stream4(request):
     videoCamera = VideoCamera(userMODEL)
     videoCamera.select_mode(3)
     vid = StreamingHttpResponse(gen(videoCamera, False),
-                                content_type='multipart/x-mixed-replace; boundary=frame')
+    content_type='multipart/x-mixed-replace; boundary=frame')
     return vid
-
 
 def video_save(request):
-    vid = StreamingHttpResponse(gen(VideoCamera(), True),
-                                content_type='multipart/x-mixed-replace; boundary=frame')
+    vid = StreamingHttpResponse(gen(VideoCamera(), True), 
+    content_type='multipart/x-mixed-replace; boundary=frame')
     return vid
-
 
 def video_input(request):
     return render(request, 'video_input.html')
@@ -170,23 +167,20 @@ def refresh_step1(request, username):
 def video_input01(request):
     return render(request, 'video_input01.html')
 
-
 def video_input02(request):
     return render(request, 'video_input02.html')
 
-
 def video_input03(request):
     return render(request, 'video_input03.html')
-
 
 def guide(request):
     return render(request, 'guide.html')
 
 
-def signup(request):
-    con = sqlite3.connect('./db.sqlite3', check_same_thread=False)
-    cur = con.cursor()
+def ranking(request):
+    return render(request, 'ranking.html')
 
+def signup(request):
     if request.method == "POST":
         form = UserForm(request.POST)
         if form.is_valid():
@@ -208,3 +202,4 @@ def signup(request):
     else:
         form = UserForm()
     return render(request, 'signup.html', {'form': form})
+

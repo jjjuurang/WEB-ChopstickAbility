@@ -1,0 +1,263 @@
+{% extends 'base.html' %}
+
+{% block content %}
+{% load static %}
+<link rel="stylesheet" type="text/css" href="{% static 'css/back.css' %}">
+<html>
+    <head>
+        <style>
+            .gameend{
+            height: 3px;
+            overflow-y: hidden;
+            display: block
+            }
+            .gameend .gameend01{
+            font-size: 80px;
+            font-weight: bold;
+            line-height: 1;
+            animation-name: grow;
+            animation: 2s;
+            animation-delay: 2s;
+
+            -moz-animation:  3s;
+            -webkit-animation: grow 3s;
+            -o-animation: grow 3s;
+
+            }
+            @keyframes grow {
+            from { transform: translateY(-65px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+            }
+
+            @-moz-keyframes grow
+            {
+            from { opacity: 0;}
+            to { opacity: 1;}
+            }
+            @-webkit-keyframes grow
+            {
+            from { opacity: 0;}
+            to { opacity: 1;}
+            }
+            @-o-keyframes grow
+            {
+            from { opacity: 0;}
+            to { opacity: 1;}
+            }
+
+            .rankback
+            {
+            width: 45%;
+            height: 70%;
+            background: radial-gradient(#ff32b1, #faf082);
+            border-style: hidden;
+            border-collapse: collapse;
+            border-radius: 30px;
+            position: absolute;
+
+            animation-name: grow;
+            animation-duration: 3s;
+            animation-delay: 3s;
+
+            -moz-animation:  6s;
+            -webkit-animation: grow01 6s;
+            -o-animation: grow01 6s;
+
+            }
+
+            .scoreback
+            {
+            width: 45%;
+            height: 70%;
+            background: radial-gradient(#0052d4, #9cecfb);
+            border-style: hidden;
+            border-collapse: collapse;
+            border-radius: 30px;
+            position: absolute;
+
+            animation-name: grow;
+            animation-duration: 3s;
+            animation-delay: 3s;
+
+            -moz-animation:  6s;
+            -webkit-animation: grow01 6s;
+            -o-animation: grow01 6s;
+
+            }
+
+
+             @keyframes grow01 {
+            from { transform: translateY(-65px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+            }
+
+            @-moz-keyframes grow01
+            {
+            from { opacity: 0;}
+            to { opacity: 1;}
+            }
+            @-webkit-keyframes grow01
+            {
+            from { opacity: 0;}
+            to { opacity: 1;}
+            }
+            @-o-keyframes grow01
+            {
+            from { opacity: 0;}
+            to { opacity: 1;}
+            }
+
+
+             table{
+            width: 40%;
+            height: 30%;
+            position: absolute;
+            border-style: hidden;
+            border-collapse: collapse;
+            border-radius: 10px;
+            top: 50%;
+            right: 5%;
+
+            animation-name: grow;
+            animation-duration: 3s;
+            animation-delay: 3s;
+
+            -moz-animation:  6s;
+            -webkit-animation: grow01 6s;
+            -o-animation: grow01 6s;
+            }
+            tr{
+            text-align: center;
+            border: 1px solid;
+            height: 20px;
+            animation-name: grow;
+            animation-duration: 3s;
+            animation-delay: 3s;
+
+            -moz-animation:  6s;
+            -webkit-animation: grow01 6s;
+            -o-animation: grow01 6s;
+            }
+            td{
+            padding: 5px;
+
+
+            }
+
+            .nav-step00{
+               background: rgb(0,172,238);
+               background: linear-gradient(0deg, rgba(0,172,238,1) 0%, rgba(129,5,240,1) 100%);
+               border: none;
+
+               animation-name: grow;
+               animation-duration: 3s;
+               animation-delay: 3s;
+
+               -moz-animation:  6s;
+               -webkit-animation: grow01 6s;
+               -o-animation: grow01 6s;
+               }
+
+               .nav-step00:before {
+               height: 0%;
+               width: 2px;
+               }
+
+               .nav-step00:hover {
+               box-shadow:  4px 4px 6px 0 rgba(255,255,255,.5),-4px -4px 6px 0 rgba(116, 125, 136, .5), inset -4px -4px 6px 0 rgba(255,255,255,.2),inset 4px 4px 6px 0 rgba(0, 0, 0, .4);
+               }
+
+               @keyframes loop{
+               0%{
+               top: 14%;
+               right: 3%
+               }
+
+               50%{
+               top: 18%;
+               right: 3%;
+               }
+
+               100%{
+               top: 14%;
+               right: 3%;
+               }
+               }
+
+
+
+        </style>
+    </head>
+    <body>
+
+    <div class = "scoreback" style="top: 25%; left: 2.5%;">
+        <p style="width: 100%; position: absolute; top: 0%; text-align: center; font-style:italic; font-size: 70px; font-weight: bold; ">
+            My
+        </p>
+        <p style="width: 100%; position: absolute; top: 15%; text-align: center; font-style:italic;font-size: 70px; font-weight: bold; ">
+            SCORE
+        </p>
+
+    </div>
+
+    <div class = "rankback" style="top: 25%; right: 2.5%;">
+        <p style="width: 100%; position: absolute; top: 0%; text-align: center; font-style:italic; font-size: 65px; font-weight: bold; ">
+            Live
+        </p>
+        <p style="width: 100%; position: absolute; top: 10%; text-align: center; font-style:italic;font-size: 65px; font-weight: bold; ">
+            SCORE
+        </p>
+        <p style="width: 100%; position: absolute; top: 20%; text-align: center; font-style:italic; font-size: 65px; font-weight: bold; ">
+            BOARD
+        </p>
+    </div>
+    <table>
+      <thead>
+        <tr>
+          <th>Rank</th><th>User Name</th><th>Score</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>1</td><td>rest</td><td>100</td>
+        </tr>
+        <tr>
+          <td>2</td><td>sleep</td><td>100</td>
+        </tr>
+        <tr>
+          <td>3</td><td>game</td><td>100</td>
+        </tr>
+      </tbody>
+    </table>
+
+
+
+    <table style="height: 8%; top: 85%; right: 5%;background: rgb(244, 196, 243);  background: linear-gradient(0deg, rgb(244, 196, 243, 1) 0%, rgba(0,0,139,1) 100%);">
+      <tbody style="text-align: right;">
+        <tr>
+          <td width="23%"style="color: white;">1</td><td width="51.5%" style="color: white;">sleep</td><td style="color: white;">1</td>
+        </tr>
+        </tbody>
+    </table>
+
+
+    </body>
+</html>
+<div class = "gameend">
+    <div class = "gameend01" style="position: absolute; top: 13%; left: 40%; font-color: black;">Game Over</div>
+</div>
+
+
+
+
+
+
+<button class="nav-step00" style="top: 87%;left: 30%; border: 0px solid; border-radius: 10px; background-color: #BFDAFF;">
+                    <a class="nav-link" href="{% url 'home' %}" style="color: white;">back to home</a>
+</button>
+
+<button class="nav-step00" style="top: 87%; left: 10%; border: 0px solid; border-radius: 10px; background-color: #00c3ff;">
+                    <a class="nav-link" href="{% url 'game_01' %}" style="color: white;">retry</a>
+</button>
+
+{% endblock %}

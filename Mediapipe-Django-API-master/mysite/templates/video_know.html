@@ -1,0 +1,167 @@
+{% extends 'base.html' %}
+
+{% block content %}
+{% load static %}
+<link rel="stylesheet" type="text/css" href="{% static 'css/back.css' %}">
+    <html>
+        <head>
+           <script>
+                function call_counter(url) {
+                    window.open(url);
+                }
+            </script>
+
+            <style>
+                .nav-step00{
+               background: rgb(0,172,238);
+               background: linear-gradient(0deg, rgba(0,172,238,1) 0%, rgba(129,5,240,1) 100%);
+               border: none;
+               }
+
+               .nav-step00:before {
+               height: 0%;
+               width: 2px;
+               }
+
+               .nav-step00:hover {
+               box-shadow:  4px 4px 6px 0 rgba(255,255,255,.5),-4px -4px 6px 0 rgba(116, 125, 136, .5), inset -4px -4px 6px 0 rgba(255,255,255,.2),inset 4px 4px 6px 0 rgba(0, 0, 0, .4);
+               }
+
+               *{margin:0;padding;box-sizing:border-box;}
+               ul,li{list-style: none;}
+
+               [name="slide"] {display: none;}
+               .some01 {
+               width: 45%;
+               max-width:45%;
+               margin:0 auto;
+               }
+               .some01 img {max-width:100%;}
+
+               .some01 .some02{
+
+               white-space: nowrap;
+               font-size: 0;
+               overflow: hidden;
+               }
+
+               .some01 .some03{
+               position: relative;
+               display: inline-block;
+               vertical-align: middle;
+               width: 100%;
+               transition: all .35s;
+               }
+
+               .some01 .some03 label{
+               position: absolute;
+               z-index: 1;
+               top: 50%;
+               transform: translateY(-50%);
+               padding: 20px;
+               border-radius: 50%;
+               cursor: pointer;
+               }
+               .left{
+               left: 20px;
+               background-color: #FFFFFF;
+               background-image: url('https://post-phinf.pstatic.net/MjAyMjA2MDFfMTIw/MDAxNjU0MDU5ODE4MDQ2.1mwSNCfzTAMff8Ep8pjx0mjDGK5Kye1vdxXhFm0Tbvkg.Ag7Y49RpRQIJp9lS96NaL9p17JXVt-10OZSuYwSNKo8g.PNG/left_go.png?type=w1200');
+               background-position: center center;
+               background-size: 50%;
+               background-repeat: no-repeat;
+               }
+               .right{
+               right: 20px;
+               background-color: #FFFFFF;
+               background-image: url('https://post-phinf.pstatic.net/MjAyMjA2MDFfMjgy/MDAxNjU0MDYwMTE5MDY3.yESKbGDWAEFKXxACG76IbF4kf2JYo5GWto2tfQkKpT4g.N6kL6Dz_mCcDhB1czwx6Axd_Dw2fn_Dg4_wJ90VTpdgg.PNG/right_go.png?type=w1200');
+               background-position: center center;
+               background-size: 50%;
+               background-repeat: no-repeat;
+               }
+
+               [id="slide01"]:checked ~ .some02 .some03 {transform: translateX(0);}
+               [id="slide02"]:checked ~ .some02 .some03 {transform: translateX(-100%);}
+               [id="slide03"]:checked ~ .some02 .some03 {transform: translateX(-200%);}
+               [id="slide04"]:checked ~ .some02 .some03 {transform: translateX(-300%);}
+
+
+            </style>
+        </head>
+        <body>
+        <div class="step02" style="width: 100%; height: 10%; position: absolute; top: 6%; text-align:center; font-size: 80px;">
+            Practice
+        </div>
+
+            <table>
+                <tr>
+                    <td width="50%">
+
+                        <img src="http://127.0.0.1:8000/video_input/video_stream" style="width:45%; height: 72%; position: absolute; top: 23%; left: 3%;" />
+
+
+
+                    </td>
+                </tr>
+            </table>
+            {% if user.is_authenticated %}
+                <button class="nav-step00" disabled>
+                    back to home
+                </button>
+            {% else %}
+                <button class="nav-step00" style="border: 0px solid; border-radius: 10px; background-color: #BFDAFF;">
+                    <a class="nav-link" href="{% url 'home' %}" style="color: white;">back to home</a>
+                </button>
+            {% endif %}
+
+        <div class="some01" style="position: absolute; right: 5%; top: 23%;">
+
+            <input type="radio" name="slide" id="slide01">
+            <input type="radio" name="slide" id="slide02">
+            <input type="radio" name="slide" id="slide03">
+            <input type="radio" name="slide" id="slide04">
+
+            <ul class="some02">
+
+                <li class="some03">
+                    <div>
+                        <label for="slide04" class="left"></label>
+                        <a><img src="https://post-phinf.pstatic.net/MjAyMjA2MDFfMTAg/MDAxNjU0MDU4OTI3MjAw.JVY8HQgj8c25YxW41_-opYJ7zYdM7SitG18xqOmyn8kg.7ZfLnpPeXyBtdbFcPItf6i0jlGvrOWRcOJkMxF4oXk0g.PNG/01page_%EC%88%98%EC%A0%95.png?type=w1200"></a>
+                        <label for="slide02" class="right"></label>
+                    </div>
+                </li>
+
+                <li class="some03">
+                    <div>
+                        <label for="slide01" class="left"></label>
+                        <a><img src="https://post-phinf.pstatic.net/MjAyMjA2MDFfMjc3/MDAxNjU0MDU4OTk0Mjc3.Te6LtGqxj_Pku6qRZpikrf0rj1qs54DeZCL4Hvw3y30g.wC1eMVQzdrZ4-FEFUoRm-IyeoF44iz0MKIxRrUBeEjEg.PNG/02page_%EC%88%98%EC%A0%95.png?type=w1200"></a>
+                        <label for="slide03" class="right"></label>
+                    </div>
+                </li>
+
+                <li class="some03">
+                    <div>
+                        <label for="slide02" class="left"></label>
+                        <a><img src="https://post-phinf.pstatic.net/MjAyMjA2MDFfMTY4/MDAxNjU0MDU5MDMxMTgw.-lBtYb1eQ29T1oP47D3F_x81gcfs4H5QpAJ5Y1hgSCwg.F-vDs9_V-ZigvJlCCAR2woJ4PtTYElV9jJZvRSQWz2Ig.PNG/03page_%EC%88%98%EC%A0%95.png?type=w1200"></a>
+                        <label for="slide04" class="right"></label>
+                    </div>
+                </li>
+
+                <li class="some03">
+                    <div>
+                        <label for="slide03" class="left"></label>
+                        <a><img src="https://post-phinf.pstatic.net/MjAyMjA2MDFfMTUw/MDAxNjU0MDU5MDY1Nzc3.LirCGuDvgtFTTdGDOFUiG8o2PsECyQ9PXiF_upvXKt8g.noEbA4qJ5rHOrNj8EdbSI4THl5t3ZmT5qxZ-j_5mxTUg.PNG/04page_%EC%88%98%EC%A0%95.png?type=w1200"></a>
+                        <label for="slide01" class="right"></label>
+                    </div>
+                </li>
+
+            </ul>
+        </div>
+
+        <audio autoplay="autoplay" controls loop="infinite">
+            <source src="https://blogattach.naver.com/099c15a6bdeded311dfe99a294750d70d689779b75/20220531_282_blogfile/kjhjhj731_1653923909200_z3pO79_mp3/cute.mp3" >
+        </audio>
+
+
+        </body>
+    </html>
+{% endblock %}

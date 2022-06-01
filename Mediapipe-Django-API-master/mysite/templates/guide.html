@@ -4,6 +4,7 @@
 {% load static %}
 <link rel="stylesheet" type="text/css" href="{% static 'css/back.css' %}">
 <img src="https://post-phinf.pstatic.net/MjAyMjA1MTlfMjky/MDAxNjUyODk1NDE5MDg5.nAYC5cgi0Es_Uq2frA-W0nfmjcR80WjzH8gRIGckMJEg.-0h8Et14iVa_DLbdIFe_BSEy_GMh52ZDxCWpgB-uQUEg.PNG/%EB%A7%90%EA%B8%B0_02.png" alt="" style="width:1744px; height:823px; position: relative;top: 0px; ">
+
 <html>
         <head>
            <script>
@@ -27,13 +28,31 @@
                box-shadow:  4px 4px 6px 0 rgba(255,255,255,.5),-4px -4px 6px 0 rgba(116, 125, 136, .5), inset -4px -4px 6px 0 rgba(255,255,255,.2),inset 4px 4px 6px 0 rgba(0, 0, 0, .4);
                }
 
+               @keyframes loop{
+               0%{
+               top: 14%;
+               right: 3%
+               }
+
+               50%{
+               top: 18%;
+               right: 3%;
+               }
+
+               100%{
+               top: 14%;
+               right: 3%;
+               }
+               }
             </style>
         </head>
+
         <body>
 <button class="nav-step00" style="border: 0px solid; border-radius: 15px; background-color: #BFDAFF; top: 12%; right: 3%">
     <a class="nav-link" href="{% url 'home' %}" style="color: white;">Let's start</a>
 </button>
+        <img src="https://post-phinf.pstatic.net/MjAyMjA1MjVfMTUz/MDAxNjUzNDA3NjE0NzI2.CNZ0OU-KsTRrhQxHhe8nXmv5Dgfh8NeJNE286ze0uNkg.HULcjnwZGPgvvQwevmNgpb8MC5PGQCjt9UKg5KNfJyog.PNG/%EB%B6%89%EC%9D%80%EC%86%90_%EC%8B%A0.png?type=w1200" alt="" style="width: 140px; height: 140px; position: absolute; top:15%; right: 3%; animation: loop 2.1s infinite; ">
 </body>
-
+<html/>
 
 {% endblock %}
