@@ -18,7 +18,7 @@ class VideoCamera(object):
 	global please
 
 	def __init__(self):
-		self.video = cv.VideoCapture(1)
+		self.video = cv.VideoCapture(0)
 		self.video.set(cv.CAP_PROP_FRAME_WIDTH, 960)
 		self.video.set(cv.CAP_PROP_FRAME_HEIGHT, 540)
 

@@ -103,6 +103,9 @@ def video_input02(request):
 def video_input03(request):
     return render(request, 'video_input03.html')
 
+def video_know(request):
+    return render(request, 'video_know.html')
+
 def guide(request):
     return render(request, 'guide.html')
 
