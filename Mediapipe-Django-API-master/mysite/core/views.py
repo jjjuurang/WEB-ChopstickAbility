@@ -203,3 +203,5 @@ def signup(request):
         form = UserForm()
     return render(request, 'signup.html', {'form': form})
 
+def video_know(request):
+    return render(request, 'video_know.html')

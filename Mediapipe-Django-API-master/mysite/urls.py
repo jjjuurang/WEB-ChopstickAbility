@@ -58,7 +58,6 @@ urlpatterns = [
     path('video_input/video_stream3', views.video_stream3, name='video_input/video_stream3'),
     path('video_input/video_stream4', views.video_stream4, name='video_input/video_stream4'),
 
-    path('video_input/video_stream', views.video_stream, name='video_input/video_stream'),
     path('video_input/video_save', views.video_save, name='video_input/video_save'),
 
     path('admin/', admin.site.urls),
