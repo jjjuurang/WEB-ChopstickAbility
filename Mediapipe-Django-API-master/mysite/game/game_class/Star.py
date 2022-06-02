@@ -21,6 +21,12 @@ class Star:
     def get_coord(self):
         return (self.__x, self.__y)
 
+    def get_X(self):
+        return self.__x
+
+    def get_Y(self):
+        return self.__y
+
     def check_inChopstick(self, boxes):
         """
         TODO

@@ -1,7 +1,11 @@
+import copy
+
 import cv2
 import time
 
-
+import cvzone as cvzone
+import numpy as np
+from PIL import Image
 
 from mysite.game.game_class.Camera import Camera
 from mysite.game.game_class.Chopstick import Chopstick
@@ -11,7 +15,7 @@ from mysite.game.game_class.Star import Star
 
 class Game:
 
-    def __init__(self, mode="EASY"):
+    def __init__(self, mode="easy"):
         self.mode = mode
         self.speed = 0
 
@@ -24,17 +28,21 @@ class Game:
         self.regen_time = float(self.speed) / float(2)
         self.stars = []
 
+        tempstarImage = cv2.imread("mysite/game/game_class/image/star.png", cv2.IMREAD_UNCHANGED)
+        self.starSize = 80
+        self.starImage = cv2.resize(tempstarImage, (self.starSize, self.starSize))
+
         self.score = 0
 
     def game_mode(self):
-        if self.mode == "EASY":  # easy
+        if self.mode == "easy":  # easy
             self.speed = 7
-        elif self.mode == "NORMAL":
+        elif self.mode == "normal":
             self.speed = 5
-        elif self.mode == "HARD":
+        elif self.mode == "hard":
             self.speed = 3
 
-    def get_frame(self,now):
+    def get_frame(self, now):
         success, image = self.camera.video.read()
         if success:
             image = self.game(now)
@@ -92,7 +100,9 @@ class Game:
 
     def set_star_image(self, image):
         for star in self.stars:
-            image = cv2.circle(image, star.get_coord(), radius=10, color=(255, 255, 255), thickness=10)
+            # image = cv2.circle(image, star.get_coord(), radius=10, color=(255, 255, 255), thickness=10)
+            image = cvzone.overlayPNG(image, self.starImage, [star.get_X() - (int)(self.starSize / 2),
+                                                              star.get_Y() - (int)(self.starSize / 2)])
         return image
 
     def draw_score(self, image):
@@ -105,14 +115,39 @@ class Game:
     def get_score(self):
         return self.score
 
+    def get_mode(self):
+        return self.mode
+
+
 def gen(game):
+    playtime = 60
+
     start = time.time()
     now = start
+    overtime = (int)(now-start)
 
-    while now - start <= 60:
-        ret, jpeg = cv2.imencode('.jpg', game.get_frame(now))
+    game_mode = game.get_mode()
+    game_mode_image = cv2.imread("mysite/game/game_class/image/" + game_mode + ".png", )
+
+    while overtime <= playtime:
+        game_mode_image_copy = copy.deepcopy(game_mode_image)
+        game_mode_image_copy = cv2.putText(img=game_mode_image_copy, text=(str)(game.get_score()), org=(125, 650),
+                                      fontFace=cv2.FONT_HERSHEY_TRIPLEX, fontScale=1, color=(255, 255, 255),thickness=2)
+
+        game_mode_image_copy = cv2.putText(img=game_mode_image_copy, text=(str)(60-overtime), org=(115, 550),
+                                      fontFace=cv2.FONT_HERSHEY_TRIPLEX, fontScale=1, color=(0, 0, 0),thickness=2)
+
+        image_hconcat = cv2.hconcat([game.get_frame(now), game_mode_image_copy])
+        ret, jpeg = cv2.imencode('.jpg', image_hconcat)
         frame = jpeg.tobytes()
         yield (b'--frame\r\n'
                b'Content-Type: image/jpeg\r\n\r\n' + frame + b'\r\n\r\n')
 
         now = time.time()
+        overtime = (int)(now - start)
+
+    # gameOver
+    ret, image = cv2.imencode('.jpg', cv2.imread("mysite/game/game_class/image/gameover_ingame.png"))
+    frame = image.tobytes()
+    yield (b'--frame\r\n'
+           b'Content-Type: image/jpeg\r\n\r\n' + frame + b'\r\n\r\n')
