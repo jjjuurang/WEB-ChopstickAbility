@@ -60,7 +60,7 @@ class Chopstick:
                 label = str(self.classes[class_ids[i]])
 
                 confidence = str(round(confidences[i], 2))
-                print("정리", x, y)
+                # print("정리", x, y)
                 img = cv2.rectangle(img, (x, y), (x +50, y+h), (255, 0, 0), 1)
                 # img = cv2.putText(img, label + " " + confidence, (x, y + 20), Const.FONT, 2, (255, 255, 255), 2)
 

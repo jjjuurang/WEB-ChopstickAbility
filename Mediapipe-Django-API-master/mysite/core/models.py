@@ -19,4 +19,11 @@ class Tutorial(models.Model):
 
 
 class Ranking(models.Model):
+    NAME = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, db_column="username")
+    TIME = models.DateTimeField(null=False, blank=False, auto_now_add=True)
+    SCORE = models.IntegerField(default=0)
+    MODE = models.CharField(max_length=10, default="easy")
+
+class UserGameRecord(models.Model):
     NAME = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, db_column="username", primary_key=True)
+    COUNT = models.IntegerField(default=0)

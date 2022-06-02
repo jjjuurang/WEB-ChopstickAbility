@@ -28,5 +28,33 @@
             </table>
         <img src="https://post-phinf.pstatic.net/MjAyMjA2MDNfMjMg/MDAxNjU0MTgzODY4ODUz.9ncZ3EL5Zbf7aXPQ08eayj-8w35eSc3v4hV2pyVdFWsg.P6HaC4cxjEBB9PQ8dPzppAO1n4flccX03gKnOPdwaJkg.PNG/game_0000.png?type=w1200" alt="" style="height: 15%;position: absolute; top: 8%; right: 37.7%">
         </body>
+
+        <script>
+
+                var count = {{count}}
+                console.log({{count}})
+
+                setInterval(
+                function user_game_count(){
+
+                    $.ajax({
+                        url: 'http://127.0.0.1:8000/game/user_game_count/'+'{{request.user.username}}'+'/',
+                        type: 'GET',
+                        dataType: 'json',
+                        data: {},
+
+                        success: function(data){
+                            console.log(data.count);
+
+                            if(data.count != count){
+                                console.log("ranking update success");
+                                location.href="{% url 'ranking' %}"
+                            }
+                        }
+                    });
+                }, 3000);
+
+    </script>
+
     </html>
 {% endblock %}

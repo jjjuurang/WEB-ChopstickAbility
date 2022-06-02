@@ -207,15 +207,11 @@
         </tr>
       </thead>
       <tbody>
+        {% for ran in rank%}
         <tr>
-          <td><1</td><td>rest</td><td>100</td>
+          <td>{{ran.rank}}</td><td>{{ran.name}}</td><td>{{ran.SCORE}}</td>
         </tr>
-        <tr>
-          <td>2</td><td>sleep</td><td>100</td>
-        </tr>
-        <tr>
-          <td>3</td><td>game</td><td>100</td>
-        </tr>
+        {% endfor %}
       </tbody>
     </table>
 
@@ -224,7 +220,7 @@
     <table style="height: 8%; top: 85%; right: 5%;background: rgb(244, 196, 243);  background-color: #323232;">
       <tbody style="text-align: right;">
         <tr>
-          <td width="23%"style="color: white; font-weight: bold; font-size: 30px;">1</td><td width="51.5%" style="color: white;font-weight: bold; font-size: 30px; ">sleep</td><td style="color: white;font-weight: bold; font-size: 30px;">1</td>
+          <td width="23%"style="color: white; font-weight: bold; font-size: 30px;">{{record}}</td><td width="51.5%" style="color: white;font-weight: bold; font-size: 30px; ">{{request.user.username}}</td><td style="color: white;font-weight: bold; font-size: 30px;">{{score}}</td>
         </tr>
         </tbody>
     </table>
@@ -242,11 +238,11 @@
 
 
 <button class="nav-step00" style="position: absolute; top: 87%;left: 30%; border: 0px solid; border-radius: 10px; background-color: #323232;">
-                    <a class="nav-link" href="{% url 'home' %}" style="color: white; font-size: 16px; font-weight: bold;">HOME</a>
+                    <a class="nav-link" href="{% url 'home' %}" style="color: white; font-size: 16px; font-weight: bold;">back to home</a>
 </button>
 
 <button class="nav-step00" style="position: absolute; top: 87%; left: 10%; border: 0px solid; border-radius: 10px; background-color: #323232; ">
-                    <a class="nav-link" href="{% url 'game_01' %}" style="color: white; font-size: 16px; font-weight: bold;">RETRY</a>
+                    <a class="nav-link" href="{% url 'game_01' %}" style="color: white; font-size: 16px; font-weight: bold;">retry</a>
 </button>
 
 {% endblock %}
