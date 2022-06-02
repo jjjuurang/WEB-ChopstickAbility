@@ -22,7 +22,7 @@ class VideoCamera(object):
             self.mode = -1
 
         else:
-            self.tutorial = Tutorial.objects.filter(NAME=user)
+            self.tutorial = Tutorial.objects.get(NAME=user)
             self.mode = 0
 
         self.video = cv.VideoCapture(0)
@@ -254,13 +254,15 @@ class VideoCamera(object):
 
     def updateDB(self):
         if self.mode == 0:
-            self.tutorial.update(STEP1=1)
+            self.tutorial.STEP1 = 1
         elif self.mode == 1:
-            self.tutorial.update(STEP2=1)
+            self.tutorial.STEP2 = 1
         elif self.mode == 2:
-            self.tutorial.update(STEP3=1)
+            self.tutorial.STEP3 = 1
         elif self.mode == 3:
-            self.tutorial.update(STEP4=1)
+            self.tutorial.STEP4 = 1
+
+        self.tutorial.save()
 
 
 

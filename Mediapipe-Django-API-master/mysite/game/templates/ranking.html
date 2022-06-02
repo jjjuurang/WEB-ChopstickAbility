@@ -207,15 +207,11 @@
         </tr>
       </thead>
       <tbody>
+        {% for ran in rank%}
         <tr>
-          <td><p id="ex" style="width:10px; height: 10px;position: absolute; top:20%; left:10%;">1</p></td><td>rest</td><td>100</td>
+          <td>{{ran.rank}}</td><td>{{ran.name}}</td><td>{{ran.SCORE}}</td>
         </tr>
-        <tr>
-          <td>2</td><td>sleep</td><td>100</td>
-        </tr>
-        <tr>
-          <td>3</td><td>game</td><td>100</td>
-        </tr>
+        {% endfor %}
       </tbody>
     </table>
 
@@ -224,7 +220,7 @@
     <table style="height: 8%; top: 85%; right: 5%;background: rgb(244, 196, 243);  background-color: #323232;">
       <tbody style="text-align: right;">
         <tr>
-          <td width="23%"style="color: white; font-weight: bold; font-size: 30px;">1</td><td width="51.5%" style="color: white;font-weight: bold; font-size: 30px; ">sleep</td><td style="color: white;font-weight: bold; font-size: 30px;">1</td>
+          <td width="23%"style="color: white; font-weight: bold; font-size: 30px;">{{my_record.ranking}}</td><td width="51.5%" style="color: white;font-weight: bold; font-size: 30px; ">{{request.user.username}}</td><td style="color: white;font-weight: bold; font-size: 30px;">{{score}}</td>
         </tr>
         </tbody>
     </table>

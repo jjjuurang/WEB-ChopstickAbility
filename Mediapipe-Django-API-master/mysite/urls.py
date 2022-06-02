@@ -40,8 +40,9 @@ urlpatterns = [
     path('game/game_easy', game_views.game_easy, name='game/game_easy'),
     path('game/game_normal', game_views.game_normal, name='game/game_normal'),
     path('game/game_hard', game_views.game_hard, name='game/game_hard'),
-    path('ranking/', views.ranking, name='ranking'),
+    path('ranking/', game_views.ranking, name='ranking'),
 
+    re_path(r'game/user_game_count/(?P<username>[\w-]+)/$', game_views.user_game_count, name='user_game_count'),
 
     # four links according to the four bottons
     path('image_upload/', views.image_upload_view, name='image_upload'),

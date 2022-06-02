@@ -27,5 +27,33 @@
                 </tr>
             </table>
         </body>
+
+        <script>
+
+                var count = {{count}}
+                console.log({{count}})
+
+                setInterval(
+                function user_game_count(){
+
+                    $.ajax({
+                        url: 'http://127.0.0.1:8000/game/user_game_count/'+'{{request.user.username}}'+'/',
+                        type: 'GET',
+                        dataType: 'json',
+                        data: {},
+
+                        success: function(data){
+                            console.log(data.count);
+
+                            if(data.count != count){
+                                console.log("ranking update success");
+                                location.href="{% url 'ranking' %}"
+                            }
+                        }
+                    });
+                }, 3000);
+
+    </script>
+
     </html>
 {% endblock %}
