@@ -7,19 +7,19 @@ from mysite.game.game_class.Game import Game
 
 
 def game_easy(request):
-    game = Game("EASY")
+    game = Game("easy")
     vid = StreamingHttpResponse(gen(game),
     content_type='multipart/x-mixed-replace; boundary=frame')
     return vid
 
 def game_normal(request):
-    game = Game("NORMAL")
+    game = Game("normal")
     vid = StreamingHttpResponse(gen(game),
     content_type='multipart/x-mixed-replace; boundary=frame')
     return vid
 
 def game_hard(request):
-    game = Game("HARD")
+    game = Game("hard")
     vid = StreamingHttpResponse(gen(game),
     content_type='multipart/x-mixed-replace; boundary=frame')
     return vid
