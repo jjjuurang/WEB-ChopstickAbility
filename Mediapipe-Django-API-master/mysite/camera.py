@@ -15,9 +15,15 @@ from script.model.keypoint_classifier.keypoint_classifier import KeyPointClassif
 
 class VideoCamera(object):
 
-    def __init__(self, user):
+    def __init__(self, user = None):
 
-        self.tutorial = Tutorial.objects.filter(NAME=user)
+        if user is None:
+            self.tutorial = None
+            self.mode = -1
+
+        else:
+            self.tutorial = Tutorial.objects.filter(NAME=user)
+            self.mode = 0
 
         self.video = cv.VideoCapture(0)
         self.video.set(cv.CAP_PROP_FRAME_WIDTH, 960)
@@ -34,7 +40,6 @@ class VideoCamera(object):
                 row[0] for row in self.keypoint_classifier_labels
             ]
 
-        self.mode = 0
 
         self.validate = []
         self.invalidate_count = 0
@@ -74,6 +79,9 @@ class VideoCamera(object):
         results = self.hands.process(image)  # 손인식 결과의 객체를 얻어오는 함수
         image.flags.writeable = True
 
+        if self.tutorial is None:
+            debug_image = cv.rectangle(debug_image, (0, 0), (960, 40), (169, 117, 0), thickness=-1)
+
         if results.multi_hand_landmarks is not None:
             # draw result landmarks
             for hand_landmarks in results.multi_hand_landmarks:
@@ -95,8 +103,10 @@ class VideoCamera(object):
                     self.invalidate_count += 1
 
                 # Drawing part
+                #TODO 추후에 주석처리 아랫줄
                 debug_image = self.draw_bounding_rect(self.use_brect, debug_image, brect)
-                debug_image = self.draw_hand_classification(debug_image, self.keypoint_classifier_labels[hand_sign_id])
+                if self.tutorial is None:
+                    debug_image = self.draw_hand_classification(debug_image, self.keypoint_classifier_labels[hand_sign_id])
 
                 passed = self.time_checker()
 
@@ -108,7 +118,10 @@ class VideoCamera(object):
         else:
             self.begin = time.time()
 
-        debug_image = self.draw_info(debug_image)
+        if self.tutorial is not None:
+            debug_image = self.draw_info(debug_image)
+
+
         return debug_image
 
     def calc_bounding_rect(self, image, landmarks):
@@ -206,8 +219,8 @@ class VideoCamera(object):
         self.mode = mode
 
     def draw_hand_classification(self, image, hand_sign_id):
-        cv.putText(image, "YOUR STEP: " + hand_sign_id, (10, 120),
-                   cv.FONT_HERSHEY_SIMPLEX, 0.6, (255, 255, 255), 1,
+        cv.putText(image, "YOUR STEP: " + hand_sign_id, (10, 30),
+                   cv.FONT_HERSHEY_SIMPLEX, 1, (255, 255, 255), 2,
                    cv.LINE_AA)
 
         return image

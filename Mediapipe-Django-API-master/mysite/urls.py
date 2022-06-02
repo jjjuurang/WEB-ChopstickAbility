@@ -57,6 +57,7 @@ urlpatterns = [
     path('video_input/video_stream2', views.video_stream2, name='video_input/video_stream2'),
     path('video_input/video_stream3', views.video_stream3, name='video_input/video_stream3'),
     path('video_input/video_stream4', views.video_stream4, name='video_input/video_stream4'),
+    path('video_input/video_stream5', views.video_stream5, name='video_input/video_stream5'),
 
     path('video_input/video_save', views.video_save, name='video_input/video_save'),
 
