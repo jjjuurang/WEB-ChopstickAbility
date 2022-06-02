@@ -94,7 +94,6 @@ class Game:
                     del self.stars[i]
                     break
 
-        image = self.draw_score(image)
         return image
         # cv2.imshow('Image', image)
 
@@ -108,12 +107,6 @@ class Game:
                                                               star.get_Y() - (int)(self.starSize / 2)])
         return image
 
-    def draw_score(self, image):
-
-        cv2.putText(image, "YOUR SCORE: " + str(self.score), (10, 120),
-                    cv2.FONT_HERSHEY_SIMPLEX, 0.6, (255, 255, 255), 1,
-                    cv2.LINE_AA)
-        return image
 
     def get_score(self):
         return self.score
