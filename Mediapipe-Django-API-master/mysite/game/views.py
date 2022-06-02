@@ -80,9 +80,9 @@ def game_03(request):
 
 def ranking(request):
     userMODEL = get_user_model().objects.get(username=request.user.username)
-    score= Ranking.objects.filter(NAME=userMODEL).order_by('-NAME_id')[0]
+    score= Ranking.objects.filter(NAME=userMODEL).order_by('-id')[0]
 
-    print(score.SCORE)
+    print(score.id)
 
     rank = Ranking.objects.raw("""
         select *, rank() over (partition by MODE order by SCORE desc) as rank, auth_user.username as name
@@ -104,7 +104,7 @@ def ranking(request):
 
     context = {
         'score': score.SCORE,
-        'record' : my_record,
+        'record' : my_record[0].ranking,
         'rank' : rank[0:4],
     }
 
