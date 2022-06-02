@@ -110,7 +110,7 @@ AUTH_PASSWORD_VALIDATORS = [
 LANGUAGE_CODE = 'en-us'
 
 # change this where applicable
-TIME_ZONE = 'Asia/Singapore'
+TIME_ZONE = 'UTC'
 
 USE_I18N = True
 
