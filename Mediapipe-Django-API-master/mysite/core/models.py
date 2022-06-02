@@ -17,3 +17,6 @@ class Tutorial(models.Model):
     STEP2 = models.IntegerField(default=0)
     STEP3 = models.IntegerField(default=0)
     STEP4 = models.IntegerField(default=0)
+
+class Ranking(models.Model):
+    NAME = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, db_column="username", primary_key=True)
