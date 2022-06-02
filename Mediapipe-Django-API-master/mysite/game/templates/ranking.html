@@ -84,6 +84,15 @@
             -o-animation: grow01 6s;
 
             }
+            .mine{
+            animation-name: grow;
+            animation-duration: 3s;
+            animation-delay: 3s;
+
+            -moz-animation:  6s;
+            -webkit-animation: grow01 6s;
+            -o-animation: grow01 6s;
+            }
 
 
              @keyframes grow01 {
@@ -145,8 +154,7 @@
             }
 
             .nav-step00{
-               background: rgb(0,172,238);
-               background: linear-gradient(0deg, rgba(0,172,238,1) 0%, rgba(129,5,240,1) 100%);
+
                border: none;
 
                animation-name: grow;
@@ -174,7 +182,7 @@
                }
 
                50%{
-               top: 18%;
+               top: 17%;
                right: 3%;
                }
 
@@ -191,25 +199,17 @@
     <body>
 
     <div class = "scoreback" style="top: 25%; left: 2.5%;">
-        <p style="width: 100%; position: absolute; top: 0%; text-align: center; font-style:italic; font-size: 70px; font-weight: bold; ">
-            My
-        </p>
-        <p style="width: 100%; position: absolute; top: 15%; text-align: center; font-style:italic;font-size: 70px; font-weight: bold; ">
-            SCORE
-        </p>
 
+        <img src="https://post-phinf.pstatic.net/MjAyMjA2MDJfMjc0/MDAxNjU0MTYyMjU5MjMx.xt17_5loG2phsfXf8siDpuQhOiNpKl3JY6vY2eQsX_8g.yHVwxjG7M_8IcnrlX9KOv10J_p92MUCl35yoCI0V9SYg.PNG/myscore.png?type=w1200" alt="" style="width: 45%; height: 25%; position: absolute; top: 3.5%; left: 28%; animation-name: grow; animation: 2s; animation-delay: 2s; -moz-animation:  3s; -webkit-animation: grow 3s; -o-animation: grow 3s;">
+        <div class="mine" style="width: 100%; height: 50%; position: absolute; top: 25%; color: white; font-size: 200px; font-weight: bold; text-align:center">
+            {{score}}
+        </div>
     </div>
 
     <div class = "rankback" style="top: 25%; right: 2.5%;">
-        <p style="width: 100%; position: absolute; top: 0%; text-align: center; font-style:italic; font-size: 65px; font-weight: bold; ">
-            Live
-        </p>
-        <p style="width: 100%; position: absolute; top: 10%; text-align: center; font-style:italic;font-size: 65px; font-weight: bold; ">
-            SCORE
-        </p>
-        <p style="width: 100%; position: absolute; top: 20%; text-align: center; font-style:italic; font-size: 65px; font-weight: bold; ">
-            BOARD
-        </p>
+
+        <img src="https://post-phinf.pstatic.net/MjAyMjA2MDJfMTY1/MDAxNjU0MTgwNDIzMjY3.h-mXOChnkVdrHiAmXhRY5LIFMA4iNoLST00Peuy0crgg.RZo9SOraH38ZMnAIUSw4sC2RMVufxAxcFFRGcEQV3Qgg.PNG/score_board.png?type=w1200" alt="" style="width: 45%; height: 25%; position: absolute; top: 3.5%; right: 28%; animation-name: grow; animation: 2s; animation-delay: 2s; -moz-animation:  3s; -webkit-animation: grow 3s; -o-animation: grow 3s;">
+
     </div>
     <table>
       <thead>
@@ -218,24 +218,20 @@
         </tr>
       </thead>
       <tbody>
+        {% for ran in rank%}
         <tr>
-          <td>1</td><td>rest</td><td>100</td>
+          <td>{{ran.rank}}</td><td>{{ran.name}}</td><td>{{ran.SCORE}}</td>
         </tr>
-        <tr>
-          <td>2</td><td>sleep</td><td>100</td>
-        </tr>
-        <tr>
-          <td>3</td><td>game</td><td>100</td>
-        </tr>
+        {% endfor %}
       </tbody>
     </table>
 
 
 
-    <table style="height: 8%; top: 85%; right: 5%;background: rgb(244, 196, 243);  background: linear-gradient(0deg, rgb(244, 196, 243, 1) 0%, rgba(0,0,139,1) 100%);">
+    <table style="height: 8%; top: 85%; right: 5%;background: rgb(244, 196, 243);  background-color: #323232;">
       <tbody style="text-align: right;">
         <tr>
-          <td width="23%"style="color: white;">1</td><td width="51.5%" style="color: white;">sleep</td><td style="color: white;">1</td>
+          <td width="23%"style="color: white; font-weight: bold; font-size: 30px;">{{record}}</td><td width="51.5%" style="color: white;font-weight: bold; font-size: 30px; ">{{request.user.username}}</td><td style="color: white;font-weight: bold; font-size: 30px;">{{score}}</td>
         </tr>
         </tbody>
     </table>
@@ -244,7 +240,7 @@
     </body>
 </html>
 <div class = "gameend">
-    <div class = "gameend01" style="position: absolute; top: 13%; left: 40%; font-color: black;">Game Over</div>
+    <img src="https://post-phinf.pstatic.net/MjAyMjA2MDJfNjIg/MDAxNjU0MTUwODI4NjAy.UmNoeopG_8rtcErQVZ26VQJON7u_DiYtxoM1Gs7g2ncg.WvRhZaoAmdNKs6gTwMnpMoNFgNH48NjWcor4JtW4KSUg.PNG/gameover.png?type=w1200" alt="" style="height: 15%;position: absolute; top: 8%; right: 34.4%; animation-name: grow; animation: 2s; animation-delay: 2s; -moz-animation:  3s; -webkit-animation: grow 3s; -o-animation: grow 3s;">
 </div>
 
 
@@ -252,12 +248,12 @@
 
 
 
-<button class="nav-step00" style="top: 87%;left: 30%; border: 0px solid; border-radius: 10px; background-color: #BFDAFF;">
-                    <a class="nav-link" href="{% url 'home' %}" style="color: white;">back to home</a>
+<button class="nav-step00" style="position: absolute; top: 87%;left: 30%; border: 0px solid; border-radius: 10px; background-color: #323232;">
+                    <a class="nav-link" href="{% url 'home' %}" style="color: white; font-size: 16px; font-weight: bold;">back to home</a>
 </button>
 
-<button class="nav-step00" style="top: 87%; left: 10%; border: 0px solid; border-radius: 10px; background-color: #00c3ff;">
-                    <a class="nav-link" href="{% url 'game_01' %}" style="color: white;">retry</a>
+<button class="nav-step00" style="position: absolute; top: 87%; left: 10%; border: 0px solid; border-radius: 10px; background-color: #323232; ">
+                    <a class="nav-link" href="{% url 'game_01' %}" style="color: white; font-size: 16px; font-weight: bold;">retry</a>
 </button>
 
 {% endblock %}

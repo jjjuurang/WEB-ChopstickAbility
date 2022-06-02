@@ -21,7 +21,7 @@ from django.shortcuts import render, redirect
 from .forms import UserForm
 
 import sqlite3
-from .models import Tutorial
+from .models import Tutorial, UserGameRecord
 
 
 class Home(TemplateView):
@@ -111,6 +111,12 @@ def video_stream4(request):
     content_type='multipart/x-mixed-replace; boundary=frame')
     return vid
 
+def video_stream5(request):
+    videoCamera = VideoCamera()
+    vid = StreamingHttpResponse(gen(videoCamera, False),
+    content_type='multipart/x-mixed-replace; boundary=frame')
+    return vid
+
 def video_save(request):
     vid = StreamingHttpResponse(gen(VideoCamera(), True), 
     content_type='multipart/x-mixed-replace; boundary=frame')
@@ -177,8 +183,7 @@ def guide(request):
     return render(request, 'guide.html')
 
 
-def ranking(request):
-    return render(request, 'ranking.html')
+
 
 def signup(request):
     if request.method == "POST":
@@ -195,8 +200,11 @@ def signup(request):
             tutorial = Tutorial(NAME=userMODEL, STEP1=0, STEP2=0, STEP3=0, STEP4=0)
             tutorial.save()
 
-            rows = Tutorial.objects.get(NAME=userMODEL)
-            print(rows.NAME, rows.STEP1, rows.STEP2, rows.STEP3, rows.STEP4)
+            game_record = UserGameRecord(NAME=userMODEL, COUNT=0)
+            game_record.save()
+
+            # rows = Tutorial.objects.get(NAME=userMODEL)
+            # print(rows.NAME, rows.STEP1, rows.STEP2, rows.STEP3, rows.STEP4)
 
             return redirect('/guide')
     else:

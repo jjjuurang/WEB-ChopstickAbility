@@ -40,10 +40,10 @@ class Chopstick:
                     w = int(detection[2] * image_width)
                     h = int(detection[3] * image_height)
 
-                    x = int(center_x - w / 2)
+                    x = int(center_x - w / 2 -30)
                     y = int(center_y - h / 2)
 
-                    self.boxes.append([x, y, 50, h])
+                    self.boxes.append([x, y, 100, h])
                     boxes.append([x, y, w, h])
                     confidences.append((float(confidence)))
                     class_ids.append(class_id)
@@ -57,11 +57,14 @@ class Chopstick:
                 # x, y, w, h = self.boxes[i]
                 x, y, w, h = boxes[i]
 
-                label = str(self.classes[class_ids[i]])
+                # label = str(self.classes[class_ids[i]])
+                #
+                # confidence = str(round(confidences[i], 2))
+                # print("정리", x, y)
 
-                confidence = str(round(confidences[i], 2))
-                print("정리", x, y)
-                img = cv2.rectangle(img, (x, y), (x +50, y+h), (255, 0, 0), 1)
+                # img = cv2.rectangle(img, (x, y), (x +100, y+h), (255, 255, 255), 1)
+
+
                 # img = cv2.putText(img, label + " " + confidence, (x, y + 20), Const.FONT, 2, (255, 255, 255), 2)
 
         return img

@@ -6,7 +6,7 @@ class RandomCoordinate:
         self.width = width
         self.height = height
 
-        self.x = random.randrange(100, int(width - 1)-100)
+        self.x = random.randrange(100, int(width - 1)-500)
         self.y = random.randrange(100, int(height - 1)-100)
 
     def get_coord(self):
