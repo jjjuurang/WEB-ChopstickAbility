@@ -84,6 +84,15 @@
             -o-animation: grow01 6s;
 
             }
+            .mine{
+            animation-name: grow;
+            animation-duration: 3s;
+            animation-delay: 3s;
+
+            -moz-animation:  6s;
+            -webkit-animation: grow01 6s;
+            -o-animation: grow01 6s;
+            }
 
 
              @keyframes grow01 {
@@ -192,7 +201,9 @@
     <div class = "scoreback" style="top: 25%; left: 2.5%;">
 
         <img src="https://post-phinf.pstatic.net/MjAyMjA2MDJfMjc0/MDAxNjU0MTYyMjU5MjMx.xt17_5loG2phsfXf8siDpuQhOiNpKl3JY6vY2eQsX_8g.yHVwxjG7M_8IcnrlX9KOv10J_p92MUCl35yoCI0V9SYg.PNG/myscore.png?type=w1200" alt="" style="width: 45%; height: 25%; position: absolute; top: 3.5%; left: 28%; animation-name: grow; animation: 2s; animation-delay: 2s; -moz-animation:  3s; -webkit-animation: grow 3s; -o-animation: grow 3s;">
-
+        <div class="mine" style="width: 100%; height: 50%; position: absolute; top: 25%; color: white; font-size: 200px; font-weight: bold; text-align:center">
+            {{score}}
+        </div>
     </div>
 
     <div class = "rankback" style="top: 25%; right: 2.5%;">
