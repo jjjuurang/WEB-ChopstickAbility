@@ -2,6 +2,8 @@ import cv2
 import mediapipe as mp
 import numpy as np
 
+from mysite.game.game_class.Const import Const
+
 
 class Chopstick:
 
@@ -55,14 +57,14 @@ class Chopstick:
         if len(indexes) > 0:
             for i in indexes.flatten():
                 # x, y, w, h = self.boxes[i]
-                x, y, w, h = boxes[i]
+                # x, y, w, h = boxes[i]
 
-                # label = str(self.classes[class_ids[i]])
-                #
-                # confidence = str(round(confidences[i], 2))
-                # print("정리", x, y)
+                label = str(self.classes[class_ids[i]])
 
-                # img = cv2.rectangle(img, (x, y), (x +100, y+h), (255, 255, 255), 1)
+                confidence = str(round(confidences[i], 2))
+                print("정리", x, y)
+
+                img = cv2.rectangle(img, (x, y), (x +100, y+h), (255, 255, 255), 1)
 
 
                 # img = cv2.putText(img, label + " " + confidence, (x, y + 20), Const.FONT, 2, (255, 255, 255), 2)

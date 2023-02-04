@@ -119,7 +119,7 @@ class Game:
 
 
 def gen(game):
-    playtime = 60
+    playtime = 45
 
     start = time.time()
     now = start
@@ -134,7 +134,7 @@ def gen(game):
                                            fontFace=cv2.FONT_HERSHEY_TRIPLEX, fontScale=1, color=(255, 255, 255),
                                            thickness=2)
 
-        game_mode_image_copy = cv2.putText(img=game_mode_image_copy, text=(str)(60 - overtime), org=(115, 550),
+        game_mode_image_copy = cv2.putText(img=game_mode_image_copy, text=(str)(playtime - overtime), org=(115, 550),
                                            fontFace=cv2.FONT_HERSHEY_TRIPLEX, fontScale=1, color=(0, 0, 0), thickness=2)
 
         image_hconcat = cv2.hconcat([game.get_frame(now), game_mode_image_copy])
